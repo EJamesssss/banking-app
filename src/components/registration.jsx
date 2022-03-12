@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, {useState} from "react";
 import { render } from "react-dom";
 
 // export default class RegisterUser extends Component{
@@ -35,24 +35,37 @@ import { render } from "react-dom";
 //     }
 // }
 
-const AddNewUser = (props) => {
-    const [name, setName] = useState(props.name)
-    const [bal, setBal] = useState(props.bal)
+const AddNewUser = () => {
+    const [name, setName] = useState('')
+    const [bal, setBal] = useState('')
+
+    const handleChangeName = (e) => {
+        setName(e.target.value)
+    }
+
+    const handleChangeBalance = (e) => {
+        setBal(e.target.value)
+    }
 
     const handleClick = (e) => {
-        setName = ("asdasd")
+        localStorage.setItem("fullname", name)
+        localStorage.setItem("Balance", bal)
         
     }
+
+    
 
     return(
         <div>
             <form onSubmit={handleClick}>
-            <label> Full Name: {name}</label>
-            <input value={name} onSubmit={e => setName(e.target.value)} />
-            <label> Balance: {bal}</label>
-            <input value={bal} onSubmit={e => setBal(e.target.value)} />
+            <label> Full Name:</label>
+            <input name="fullname" value={name} onChange={handleChangeName} />
+            <label> Balance:</label>
+            <input name="balance" value={bal} onChange={handleChangeBalance} />
             <button type="submit">Register User</button>
             </form>
+            <p>Name: {localStorage.getItem("fullname")}</p>
+            <p>Balance: {localStorage.getItem("Balance")}</p>
         </div>
     )
 }

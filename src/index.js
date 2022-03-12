@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './components/exercise'
 import reportWebVitals from './reportWebVitals';
 import AddNewUser from './components/registration'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
     <AddNewUser />
   </React.StrictMode>,
   document.getElementById('root')
