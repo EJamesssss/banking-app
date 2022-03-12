@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './components/exercise'
 import reportWebVitals from './reportWebVitals';
-// import AddNewUser from './components/registration'
-import LoginUser from './components/login'
+import AddNewUser from './components/registration'
+// import LoginUser from './components/login'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <AddNewUser /> */}
-    <LoginUser />
+    <AddNewUser />
+    {/* <LoginUser /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
