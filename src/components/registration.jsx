@@ -36,6 +36,15 @@ import { render } from "react-dom";
 // }
 
 const AddNewUser = () => {
+    let myList = [{
+        "name": "elton",
+        "balance": 5000
+    }]
+    localStorage.setItem("accountList", JSON.stringify(myList))
+
+
+     var getFirstName = JSON.parse(localStorage.getItem('accountList'))
+     console.log(getFirstName[0][0])
     const [name, setName] = useState('')
     const [bal, setBal] = useState('')
 
