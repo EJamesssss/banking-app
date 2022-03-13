@@ -49,7 +49,7 @@ const AddNewUser = () => {
     }
 
     const handleClick = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
 
         let userData = {
             "name": name,
@@ -78,7 +78,7 @@ const AddNewUser = () => {
             <button type="submit">Register User</button>
             </form>
             <p>Name: {localStorage.getItem("fullname")}</p>
-            <p>Balance: {localStorage.getItem("Balance")}</p>
+            <p>Balance: {localStorage.getItem("balance")}</p>
         </div>
     )
 }
