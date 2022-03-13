@@ -36,15 +36,7 @@ import { render } from "react-dom";
 // }
 
 const AddNewUser = () => {
-    let myList = [{
-        "name": "elton",
-        "balance": 5000
-    }]
-    localStorage.setItem("accountList", JSON.stringify(myList))
 
-
-     var getFirstName = JSON.parse(localStorage.getItem('accountList'))
-     console.log(getFirstName[0][0])
     const [name, setName] = useState('')
     const [bal, setBal] = useState('')
 
@@ -57,9 +49,24 @@ const AddNewUser = () => {
     }
 
     const handleClick = (e) => {
-        localStorage.setItem("fullname", name)
-        localStorage.setItem("Balance", bal)
-        
+        e.preventDefault()
+
+        let userData = {
+            "name": name,
+            "balance": bal
+        }
+        console.log(name)
+        console.log(bal)
+        localStorage.setItem('data', ['list1', 'list2'])
+
+        if(localStorage.getItem('allAccounts') == null){
+            localStorage.setItem('allAccounts',JSON.stringify([]))
+        }
+
+        var oldData = JSON.parse(localStorage.getItem('allAccounts'))
+        oldData.push(userData)
+
+        localStorage.setItem('allAccounts', JSON.stringify(oldData))
     }
 
     
