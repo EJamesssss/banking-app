@@ -70,6 +70,7 @@ const AddNewUser = () => {
 
     return(
         <div>
+            <p>Open New Bank Account</p>
             <form onSubmit={handleClick}>
             <label> Full Name:</label>
             <input name="fullname" value={name} onChange={handleChangeName} />
@@ -77,8 +78,6 @@ const AddNewUser = () => {
             <input name="balance" value={bal} onChange={handleChangeBalance} />
             <button type="submit">Register User</button>
             </form>
-            <p>Name: {localStorage.getItem("fullname")}</p>
-            <p>Balance: {localStorage.getItem("balance")}</p>
         </div>
     )
 }
