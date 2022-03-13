@@ -5,11 +5,13 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import AddNewUser from './components/registration'
 // import LoginUser from './components/login'
+import UserDashboard from './components/accountActivity'
 
 ReactDOM.render(
   <React.StrictMode>
     <AddNewUser />
     {/* <LoginUser /> */}
+    <UserDashboard />
   </React.StrictMode>,
   document.getElementById('root')
 );

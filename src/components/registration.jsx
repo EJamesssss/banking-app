@@ -55,9 +55,6 @@ const AddNewUser = () => {
             "name": name,
             "balance": bal
         }
-        console.log(name)
-        console.log(bal)
-        localStorage.setItem('data', ['list1', 'list2'])
 
         if(localStorage.getItem('allAccounts') == null){
             localStorage.setItem('allAccounts',JSON.stringify([]))
