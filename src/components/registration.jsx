@@ -4,39 +4,6 @@ import "../App.css";
 import logo from "../assets/images/logo.png";
 import piggyBank from "../assets/images/piggybank.gif";
 
-// export default class RegisterUser extends Component{
-//     state = {
-//         fullname: "",
-//         balance: 0
-//     };
-
-//     handleChange = (e) => {
-//         const input = e.target
-//         const value = e.target
-
-//         this.setState({[input.name]: value,[input.bal]: value})
-//     }
-
-//     handleFormSubmit = () => {
-//         const {fullname, balance} = this.state;
-//         localStorage.setItem('fullname', fullname)
-//         localStorage.setItem('balance', balance)
-//     }
-
-//     render() {
-//         return (
-//             <form onSubmit={this.handleFormSubmit}>
-//                 <label>
-//                     Fullname: <input name="fullname" value={this.state.fullname} onChange={this.handleChange}/>
-//                 </label>
-//                 <label>
-//                     Amount: <input name="balance" value={this.state.balance} onChange={this.handleChange}/>
-//                 </label>
-//                 <button type="submit">Create account</button>
-//             </form>
-//         );
-//     }
-// }
 
 const AddNewUser = () => {
 
@@ -52,11 +19,15 @@ const AddNewUser = () => {
     }
 
     const handleClick = (e) => {
-        // e.preventDefault()
+        e.preventDefault()
+
+        let acctNumber = Math.floor(100000 + Math.random() * 900000)
 
         let userData = {
             "name": name,
-            "balance": bal
+            "balance": bal,
+            "accountnumber": acctNumber,
+            "history": []
         }
 
         if(localStorage.getItem('allAccounts') == null){
@@ -64,9 +35,28 @@ const AddNewUser = () => {
         }
 
         var oldData = JSON.parse(localStorage.getItem('allAccounts'))
-        oldData.push(userData)
 
-        localStorage.setItem('allAccounts', JSON.stringify(oldData))
+        if(name == '' || name == null || bal == '' || bal == null){
+            alert(`Please fill up all the needed data.`)
+        }else{
+            if(oldData.length === 0){
+                oldData.push(userData)
+                localStorage.setItem('allAccounts', JSON.stringify(oldData))
+                alert(`You have successfully opened a bank account! \n Account Name: ${name}\n Account Number: ${acctNumber}\n Balance: ${bal}`)
+                setName('')
+                setBal('')
+            }else{
+                if(name === oldData.name){
+                    alert(`Account name already in use`)
+                }else{
+                    oldData.push(userData)
+                    localStorage.setItem('allAccounts', JSON.stringify(oldData))
+                    alert(`You have successfully opened a bank account! \n Account Name: ${name}\n Account Number: ${acctNumber}\n Balance: ${bal}`)
+                    setName('')
+                    setBal('')
+                }
+            }
+        }
     }
 
     
@@ -75,34 +65,34 @@ const AddNewUser = () => {
         <section id="view_initial">
            <nav>
                 <img src={logo} />
-                <ul class="nav-options">
-                    <li class="active-nav" data-view="register">Register</li>
+                <ul className="nav-options">
+                    <li className="active-nav" data-view="register">Register</li>
                     <li data-view="login">Login</li>
                 </ul>
             </nav>
             <div>
-                <article class="view_initial_img">
+                <article className="view_initial_img">
                     <h1>
                         PiggyBank<span>.</span>
                     </h1>
                     <p>Your in-browser memory bank!</p>
                     <img src={piggyBank} alt="PiggyBank" />
                 </article>
-                <article class="view_initial_nav">
-                    <div class="view_initial_nav_dynamic">
+                <article className="view_initial_nav">
+                    <div className="view_initial_nav_dynamic">
                         <div id="dynamic_register" data-view="register">
                             <form id="form_register" onSubmit={handleClick}>
-                                <div class="input-group">
+                                <div className="input-group">
                                     <label> Full Name:</label>
                                     <input type='text' name="fullname" value={name} onChange={handleChangeName} />
                                 </div>
-                                <div class="input-group">
+                                <div className="input-group">
                                     <label> Balance:</label>
                                     <input type='number' name="balance" value={bal} onChange={handleChangeBalance} />
                                 </div>
-                                <div class="input-group">
+                                <div className="input-group">
                                     <button type="submit">
-                                        <i class="ion-android-checkmark-circle"></i>
+                                        <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
                                         Register User
                                     </button>
