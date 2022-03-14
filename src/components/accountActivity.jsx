@@ -9,10 +9,12 @@ const UserDashboard = () => {
     // console.log(storageData)
 
     let [acctName, setAcctName] = useState(' --- ')
+    let [acctNameHolder, setAcctNameHolder] = useState('')
     let [acctAmount, setAcctAmount] = useState('')
     let [newAmount, setNewAmount] = useState('')
     let [receiverAccount, setReceiverAccount] = useState('Select an Account')
     let [receiverAmount, setReceiverAmount] = useState('')
+
 
 
 
@@ -32,6 +34,8 @@ const UserDashboard = () => {
                 setAcctAmount(storageData[actDet].balance)
             }
         }
+
+        setAcctNameHolder(acctName)
 
     }
 
@@ -54,14 +58,40 @@ const UserDashboard = () => {
         var existingAmount = parseInt(acctAmount)
         var newAmountInt = parseInt(newAmount)
 
-        var updatedAmount = (existingAmount - newAmount).toString()
+        var updatedAmount = (existingAmount - newAmountInt).toString()
 
-        for(let w = 0; w < localStorage.length; w++){
-            if(acctName == storageData[w].name){
-                storageData[w].balance = updatedAmount
+        if(newAmount == "" || newAmount == null){
+            alert("Please enter an amount to withdraw")
+        }else{
+            if(newAmount > existingAmount){
+                const neg = newAmountInt - existingAmount
+                alert(`Your current balance is insufficient, however, the bank will lend you Php${neg} to complete the transaction and will automatically deducted on your next deposit`)
+                for(let w = 0; w < localStorage.length; w++){
+                    if(acctName == storageData[w].name){
+                        storageData[w].balance = updatedAmount
+                    }
+                }
+                localStorage.setItem('allAccounts', JSON.stringify(storageData))
+        
+                setAcctAmount(updatedAmount)
+    
+                alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
+                setNewAmount('')
+            }else{
+                for(let w = 0; w < localStorage.length; w++){
+                    if(acctName == storageData[w].name){
+                        storageData[w].balance = updatedAmount
+                    }
+                }
+                localStorage.setItem('allAccounts', JSON.stringify(storageData))
+        
+                setAcctAmount(updatedAmount)
+    
+                alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
+                setNewAmount('')
             }
         }
-        localStorage.setItem('allAccounts', JSON.stringify(storageData))
+
     }
 
     let handleDeposit = (e) => {
@@ -70,13 +100,22 @@ const UserDashboard = () => {
         var newAmountDeposit = parseInt(newAmount)
 
         const updateDeposit = (existingAmountDeposit + newAmountDeposit).toString()
-
-        for(let d = 0; d < localStorage.length; d++){
-            if(acctName == storageData[d].name){
-                storageData[d].balance = updateDeposit
+        
+        if(newAmount == "" || newAmount == null){
+            alert("Please enter an amount to deposit")
+        }else{
+            for(let d = 0; d < localStorage.length; d++){
+                if(acctName == storageData[d].name){
+                    storageData[d].balance = updateDeposit
+                }
             }
+            localStorage.setItem('allAccounts', JSON.stringify(storageData))
+    
+            setAcctAmount(updateDeposit)
+            alert(`Deposit successful: ${newAmountDeposit} to account of ${acctName}`)
+            setNewAmount('')
         }
-        localStorage.setItem('allAccounts', JSON.stringify(storageData))
+
     }
 
     let handleTransfer = (e) => {
@@ -87,35 +126,52 @@ const UserDashboard = () => {
 
         //Sender Account
         const deductSender = (senderAccount - transferAmount).toString()
-
-        for(let sender = 0; sender < storageData.length;sender++){
-            if(acctName == storageData[sender].name){
-                storageData[sender].balance = deductSender
-            }
-        }
-
         //Receiver Account
         const addReceiver = (recAccount + transferAmount).toString()
-        for(let rec = 0;rec < storageData.length;rec++){
-            if(receiverAccount == storageData[rec].name){
-                storageData[rec].balance = addReceiver
+
+        if(newAmount == "" || newAmount == null && receiverAccount == 'Select an Account' || receiverAccount == null ){
+            alert(`Please enter an amount to transfer and an account where to transfer`)
+        }else if(newAmount == "" || newAmount == null){
+            alert(`Please enter an amount to transfer`)
+        }else if(receiverAccount == 'Select an Account' || receiverAccount == null){
+            alert(`Please select a receiver's account`)
+        }else if(acctName === receiverAccount){
+            alert(`You cannot transfer to the same account`)
+        }else{
+            for(let sender = 0; sender < storageData.length;sender++){
+                if(acctName == storageData[sender].name){
+                    storageData[sender].balance = deductSender
+                }
             }
+    
+    
+            for(let rec = 0;rec < storageData.length;rec++){
+                if(receiverAccount == storageData[rec].name){
+                    storageData[rec].balance = addReceiver
+                }
+            }
+    
+            localStorage.setItem('allAccounts',JSON.stringify(storageData))
+            alert(`The amount ${transferAmount} has been transfered from ${acctName} to ${receiverAccount}`)
+            setNewAmount("")
+            setAcctAmount(deductSender)
+            setReceiverAmount(addReceiver)
         }
 
-        localStorage.setItem('allAccounts',JSON.stringify(storageData))
+
 
     }
 
     return(
         <section id="view_loggedin">
             <nav>
-                <div class="nav-brand">
+                <div className="nav-brand">
                     <img src={logo} />
                     <h1>
                         PiggyBank<span>.</span>
                     </h1>
                 </div>
-                <ul class="nav-options">
+                <ul className="nav-options">
                     <li id="editaccount">
                         <img src={edit} title="Edit Account" />
                     </li>
@@ -123,17 +179,17 @@ const UserDashboard = () => {
                 </ul>
             </nav>
             <div>
-                <article class="view_usercard">
-                    <div class="wrapper">
-                        <div class="user_informations">
+                <article className="view_usercard">
+                    <div className="wrapper">
+                        <div className="user_informations">
                             <img id="user_avatar" src={user} alt="user" />
-                            <div class="user_meta_container">
+                            <div className="user_meta_container">
                                 <h1 id="user_name">
-                                    <span id="name">{acctName}</span>
+                                    <span id="name">{acctNameHolder}</span>
                                 </h1>
                                 <p id="user_accountcreation">Mon Mar 14, 2022</p>
                                 <p id="user_accountnumber">
-                                    <span>Account Number: &nbsp; <i class="ion-card"></i></span>
+                                    <span>Account Number: &nbsp; <i className="ion-card"></i></span>
                                     <span id="accountnumber">1234567890</span>
                                 </p>
                                 <p id="user_balance">
@@ -143,16 +199,16 @@ const UserDashboard = () => {
                             </div>
                         </div>
 
-                        <div class="user_informations2">
+                        <div className="user_informations2">
                             <form onSubmit={handleOpenAccountDetails}>
                                     <label> User Account </label>
-                                    <select  class="accountNames" onChange={handleSelectedAccount}>
+                                    <select  className="accountNames" onChange={handleSelectedAccount}>
                                         <option value=' '> -- Select An Account --</option>
                                             { storageData.map((acctName) =>  
                                                 <option key={acctName.name} value={acctName.value}>{acctName.name}</option>)}
                                     </select>
-                                    <button class="asdf" type="submit">
-                                        <i class="ion-android-checkmark-circle"></i>
+                                    <button className="asdf" type="submit">
+                                        <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
                                         Show Account
                                     </button>
@@ -160,32 +216,32 @@ const UserDashboard = () => {
                         </div>
                     </div>
                 </article>
-                <article class="view_useractions">
-                    <div class="wrapper view_useractions_parent">
+                <article className="view_useractions">
+                    <div className="wrapper view_useractions_parent">
                         <div id="dynamic_deposit" data-action="deposit">
                             <form id="form_deposit" onSubmit={handleOpenReceiverAccount}>                                
-                                <div class="input-group">
+                                <div className="input-group">
                                     <label> Deposit Amount </label>
                                     <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} />
                                 </div>
-                                <div class="input-group">
+                                <div className="input-group">
                                     <button onClick={handleWithdraw}>
-                                        <i class="ion-android-checkmark-circle"></i>
+                                        <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
                                         Withdraw
                                     </button>
                                     <button onClick={handleDeposit}>
-                                        <i class="ion-android-checkmark-circle"></i>
+                                        <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
                                         Deposit
                                     </button>
                                     <button onClick={handleTransfer}>
-                                        <i class="ion-android-checkmark-circle"></i>
+                                        <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
                                         Transfer
                                     </button>
                                                     
-                                    <div class="input-group spacing">
+                                    <div className="input-group spacing">
                                         <label> Receiver Account </label>
                                         <select onChange={handleReceiverAccount}>
                                             <option value='Select an account'> -- Select An Account --</option>
@@ -193,9 +249,9 @@ const UserDashboard = () => {
                                                     <option key={receiverAccount.name} value={receiverAccount.value}>{receiverAccount.name}</option>)}
                                         </select>
                                     </div>
-                                    <div class="input-group">
+                                    <div className="input-group">
                                         <button type="submit">
-                                            <i class="ion-android-checkmark-circle"></i>
+                                            <i className="ion-android-checkmark-circle"></i>
                                             &nbsp;
                                             Show Account
                                         </button>
