@@ -14,6 +14,7 @@ const UserDashboard = () => {
     let [newAmount, setNewAmount] = useState('')
     let [receiverAccount, setReceiverAccount] = useState('Select an Account')
     let [receiverAmount, setReceiverAmount] = useState('')
+    let [acctNumber, setAcctNumber] = useState('')
 
 
 
@@ -32,6 +33,7 @@ const UserDashboard = () => {
         for(let actDet = 0;actDet < storageData.length;actDet++){
             if(acctName == storageData[actDet].name){
                 setAcctAmount(storageData[actDet].balance)
+                setAcctNumber(storageData[actDet].accountnumber)
             }
         }
 
@@ -65,10 +67,13 @@ const UserDashboard = () => {
         }else{
             if(newAmount > existingAmount){
                 const neg = newAmountInt - existingAmount
+                let historyEntry = `Withdraw Php${newAmountInt}`
                 alert(`Your current balance is insufficient, however, the bank will lend you Php${neg} to complete the transaction and will automatically deducted on your next deposit`)
                 for(let w = 0; w < localStorage.length; w++){
                     if(acctName == storageData[w].name){
                         storageData[w].balance = updatedAmount
+                        let hist = storageData[w].history
+                        hist.push(historyEntry)
                     }
                 }
                 localStorage.setItem('allAccounts', JSON.stringify(storageData))
@@ -78,9 +83,12 @@ const UserDashboard = () => {
                 alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
                 setNewAmount('')
             }else{
+                let historyEntry = `Withdraw Php${newAmountInt}`
                 for(let w = 0; w < localStorage.length; w++){
                     if(acctName == storageData[w].name){
                         storageData[w].balance = updatedAmount
+                        let hist = storageData[w].history
+                        hist.push(historyEntry)
                     }
                 }
                 localStorage.setItem('allAccounts', JSON.stringify(storageData))
@@ -104,9 +112,12 @@ const UserDashboard = () => {
         if(newAmount == "" || newAmount == null){
             alert("Please enter an amount to deposit")
         }else{
+            let historyEntry = `Deposit Php${newAmountDeposit}`
             for(let d = 0; d < localStorage.length; d++){
                 if(acctName == storageData[d].name){
                     storageData[d].balance = updateDeposit
+                    let hist = storageData[d].history
+                    hist.push(historyEntry)
                 }
             }
             localStorage.setItem('allAccounts', JSON.stringify(storageData))
@@ -138,9 +149,12 @@ const UserDashboard = () => {
         }else if(acctName === receiverAccount){
             alert(`You cannot transfer to the same account`)
         }else{
+            let historyEntry = `Php${transferAmount} transfered to ${receiverAccount}`
             for(let sender = 0; sender < storageData.length;sender++){
                 if(acctName == storageData[sender].name){
                     storageData[sender].balance = deductSender
+                    let hist = storageData[sender].history
+                    hist.push(historyEntry)
                 }
             }
     
@@ -190,7 +204,7 @@ const UserDashboard = () => {
                                 <p id="user_accountcreation">Mon Mar 14, 2022</p>
                                 <p id="user_accountnumber">
                                     <span>Account Number: &nbsp; <i className="ion-card"></i></span>
-                                    <span id="accountnumber">1234567890</span>
+                                    <span id="accountnumber">{acctNumber}</span>
                                 </p>
                                 <p id="user_balance">
                                     <span>PHP &nbsp;</span>

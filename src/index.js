@@ -9,9 +9,9 @@ import UserDashboard from './components/accountActivity'
 
 ReactDOM.render(
   <React.StrictMode>
-    <AddNewUser />
+    {/* <AddNewUser /> */}
     {/* <LoginUser /> */}
-    {/* <UserDashboard /> */}
+    <UserDashboard />
   </React.StrictMode>,
   document.getElementById('root')
 );
