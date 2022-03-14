@@ -2388,8 +2388,8 @@ section#view_initial {
     display: flex;
     align-items: center; }
     section#view_initial nav img {
-      height: 40px;
-      width: 40px; }
+      height: 60px;
+      width: 60px; }
     section#view_initial nav ul.nav-options {
       display: flex;
       align-items: center;
@@ -2433,7 +2433,7 @@ section#view_initial {
       font-size: 50px;
       font-weight: 700; }
       section#view_initial div .view_initial_img h1 span {
-        color: #ff6200; }
+        color: #00BDFE; }
     section#view_initial div .view_initial_nav .view_initial_nav_dynamic #dynamic_home,
     section#view_initial div .view_initial_nav .view_initial_nav_dynamic #dynamic_register,
     section#view_initial div .view_initial_nav .view_initial_nav_dynamic #dynamic_login {
@@ -2496,7 +2496,7 @@ section#view_loggedin {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("/public/images/wave2.svg");
+  background-image: url("/public/images/wave2.png");
   background-repeat: no-repeat;
   background-position: bottom; }
   section#view_loggedin nav {
@@ -2520,7 +2520,7 @@ section#view_loggedin {
         font-size: 40px;
         font-weight: 700; }
         section#view_loggedin nav div.nav-brand h1 span {
-          color: #ff6200; }
+          color: #00BDFE; }
     section#view_loggedin nav ul.nav-options {
       display: flex;
       align-items: center;
@@ -2535,21 +2535,27 @@ section#view_loggedin {
         margin: 0px 12px;
         text-align: center;
         font-weight: 700;
-        color: #ff6200;
+        color: #00BDFE;
         transition: background-color 500ms ease-in-out, color 500ms ease-in-out, border-color 500ms ease-in-out; }
         section#view_loggedin nav ul.nav-options li:last-child {
-          border: 2px solid #ff6200;
+          border: 2px solid #00BDFE;
           min-width: 115px; }
           section#view_loggedin nav ul.nav-options li:last-child:hover {
             border: 2px solid white;
             background-color: white;
-            color: #ff6200; }
+            color: #00BDFE; }
   section#view_loggedin div {
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center; }
+    section#view_loggedin div .user_informations2{
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; }
     section#view_loggedin div .view_usercard,
     section#view_loggedin div .view_useractions {
       width: 45%;
@@ -2595,7 +2601,7 @@ section#view_loggedin {
             section#view_loggedin div .view_usercard .wrapper .user_informations div.user_meta_container #user_name #editaccount {
               cursor: pointer; }
             section#view_loggedin div .view_usercard .wrapper .user_informations div.user_meta_container #user_name span#name {
-              color: #ff6200; }
+              color: #00BDFE; }
           section#view_loggedin div .view_usercard .wrapper .user_informations div.user_meta_container #user_accountAvatarChange,
           section#view_loggedin div .view_usercard .wrapper .user_informations div.user_meta_container #user_accountcreation,
           section#view_loggedin div .view_usercard .wrapper .user_informations div.user_meta_container #user_accountnumber {
@@ -2613,7 +2619,15 @@ section#view_loggedin {
             text-align: right;
             width: 250px; }
             section#view_loggedin div .view_usercard .wrapper .user_informations div.user_meta_container #user_balance span#balance, section#view_loggedin div .view_usercard .wrapper .user_informations div.user_meta_container #user_balance span i {
-              color: #ff6200; }
+              color: #00BDFE; }
+
+              section#view_loggedin div .view_usercard .wrapper .user_informations2 {
+                width: 95%;
+                height: 50%;
+                display: flex;
+                padding: 20px;
+                margin-bottom: 20px;
+                border: 0px;}
       section#view_loggedin div .view_usercard .wrapper .user_actions {
         width: 95%;
         height: 25%;
@@ -2713,24 +2727,39 @@ section#view_loggedin {
           height: max-content;
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          margin: 20px 0px; }
+          align-items: flex-start; }
           section#view_loggedin div .view_useractions .wrapper #dynamic_deposit form .input-group label,
           section#view_loggedin div .view_useractions .wrapper #dynamic_withdraw form .input-group label,
           section#view_loggedin div .view_useractions .wrapper #dynamic_send form .input-group label {
             margin-bottom: 7.5px; }
           section#view_loggedin div .view_useractions .wrapper #dynamic_deposit form .input-group input,
+          section#view_loggedin div .view_useractions .wrapper #dynamic_deposit form .input-group select,
           section#view_loggedin div .view_useractions .wrapper #dynamic_withdraw form .input-group input,
           section#view_loggedin div .view_useractions .wrapper #dynamic_send form .input-group input {
             width: 100%;
             border: none;
-            border-radius: 15px;
-            border-bottom: 2px solid #ff6200;
+            border-radius: 10px;
+            border-bottom: 5px solid #3973AB;
             font-size: 18px;
             font-weight: 700;
             color: rgba(0, 0, 0, 0.85);
             padding: 7.5px;
-            background-color: rgba(179, 226, 255, 0.5); }
+            background-color: rgba(179, 226, 255, 0.5); 
+            margin-top: 3px;}
+            .spacing {
+              margin-top: 87px;
+            }
+            .accountNames{
+            width: 40vw;
+            border: none;
+            border-radius: 10px;
+            border-bottom: 5px solid #3973AB;
+            font-size: 18px;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.85);
+            padding: 7.5px;
+            background-color: rgba(179, 226, 255, 0.5); 
+            margin-top: 8px;}
             section#view_loggedin div .view_useractions .wrapper #dynamic_deposit form .input-group input:focus,
             section#view_loggedin div .view_useractions .wrapper #dynamic_withdraw form .input-group input:focus,
             section#view_loggedin div .view_useractions .wrapper #dynamic_send form .input-group input:focus {
@@ -2747,6 +2776,18 @@ section#view_loggedin {
             font-size: 18px;
             font-weight: 700;
             padding: 12px 0px; }
+
+            .asdf {
+              cursor: pointer;
+              border: none;
+              color: rgba(0, 0, 0, 0.85);
+              background-color: transparent;
+              width: max-content;
+              font-family: 'Arvo', serif;
+              font-size: 18px;
+              font-weight: 700;
+              padding: 12px 0px;
+            }
       section#view_loggedin div .view_useractions .wrapper #dynamic_transactions {
         height: 509px;
         max-height: 509px;

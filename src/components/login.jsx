@@ -1,6 +1,8 @@
 import React, { Component, useState } from "react";
 import { render } from "react-dom";
 import "../App.css";
+import logo from "../assets/images/logo.png";
+import piggyBank from "../assets/images/piggybank.gif";
 
 const LoginUser = (props) => {
     const [name, setName] = useState(props.name)
@@ -13,9 +15,8 @@ const LoginUser = (props) => {
     return(
         <section id="view_initial">
             <nav>
-                <img src="/public/images/bank-icon.svg" />
+                <img src={logo} />
                 <ul class="nav-options">
-                    <li data-view="home">Home</li>
                     <li data-view="register">Register</li>
                     <li class="active-nav" data-view="login">Login</li>
                 </ul>
@@ -26,7 +27,7 @@ const LoginUser = (props) => {
                         InBank<span>.</span>
                     </h1>
                     <p>Your in-browser memory bank!</p>
-                    <img src="/public/images/bank.gif" alt="InBank" />
+                    <img src={piggyBank} alt="PiggyBank" />
                 </article>
                 <article class="view_initial_nav">
                     <div class="view_initial_nav_dynamic">

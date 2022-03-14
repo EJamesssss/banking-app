@@ -1,10 +1,14 @@
 import React, {useState} from "react";
+import "../App.css";
+import logo from "../assets/images/logo.png";
+import edit from "../assets/images/edit.png";
+import user from "../assets/images/user.png";
 
 const UserDashboard = () => {
     let storageData = JSON.parse(localStorage.getItem('allAccounts'))
     // console.log(storageData)
 
-    let [acctName, setAcctName] = useState('Select an Account')
+    let [acctName, setAcctName] = useState(' --- ')
     let [acctAmount, setAcctAmount] = useState('')
     let [newAmount, setNewAmount] = useState('')
     let [receiverAccount, setReceiverAccount] = useState('Select an Account')
@@ -103,37 +107,108 @@ const UserDashboard = () => {
     }
 
     return(
-        <div className="accountNames">
-            <form onSubmit={handleOpenAccountDetails}>
-                <p>User Account</p>
-            <select onChange={handleSelectedAccount}>
-                <option value='Select an account'> -- Select An Account --</option>
-                {storageData.map((acctName) =>  <option key={acctName.name} value={acctName.value}>{acctName.name}</option>)}
-            </select>
-            <button type="submit">Show Account</button>
-            </form>
-            <br />
-            <p>Php: {acctAmount}</p>
-            <br />
-            <form>
-            <label> Enter Amount: </label>
-            <input name="newamount" value={newAmount} onChange={handleNewAmount} />
-            <br />
-            <button onClick={handleWithdraw}>Withdraw</button>
-            <button onClick={handleDeposit}>Deposit</button>
-            <button onClick={handleTransfer}>Transfer</button>
-            </form>
-            <form onSubmit={handleOpenReceiverAccount}>
-                <p>Receiver Account</p>
-            <select onChange={handleReceiverAccount}>
-                <option value='Select an account'> -- Select An Account --</option>
-                {storageData.map((receiverAccount) =>  <option key={receiverAccount.name} value={receiverAccount.value}>{receiverAccount.name}</option>)}
-            </select>
-            <button type="submit">Show Account</button>
-            </form>
-            <br />
-            <p>Php: {receiverAmount}</p>
-        </div>
+        <section id="view_loggedin">
+            <nav>
+                <div class="nav-brand">
+                    <img src={logo} />
+                    <h1>
+                        PiggyBank<span>.</span>
+                    </h1>
+                </div>
+                <ul class="nav-options">
+                    <li id="editaccount">
+                        <img src={edit} title="Edit Account" />
+                    </li>
+                    <li id="logout">Logout</li>
+                </ul>
+            </nav>
+            <div>
+                <article class="view_usercard">
+                    <div class="wrapper">
+                        <div class="user_informations">
+                            <img id="user_avatar" src={user} alt="user" />
+                            <div class="user_meta_container">
+                                <h1 id="user_name">
+                                    <span id="name">{acctName}</span>
+                                </h1>
+                                <p id="user_accountcreation">Mon Mar 14, 2022</p>
+                                <p id="user_accountnumber">
+                                    <span>Account Number: &nbsp; <i class="ion-card"></i></span>
+                                    <span id="accountnumber">1234567890</span>
+                                </p>
+                                <p id="user_balance">
+                                    <span>PHP &nbsp;</span>
+                                    <span id='balance'>{acctAmount}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="user_informations2">
+                            <form onSubmit={handleOpenAccountDetails}>
+                                    <label> User Account </label>
+                                    <select  class="accountNames" onChange={handleSelectedAccount}>
+                                        <option value=' '> -- Select An Account --</option>
+                                            { storageData.map((acctName) =>  
+                                                <option key={acctName.name} value={acctName.value}>{acctName.name}</option>)}
+                                    </select>
+                                    <button class="asdf" type="submit">
+                                        <i class="ion-android-checkmark-circle"></i>
+                                        &nbsp;
+                                        Show Account
+                                    </button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+                <article class="view_useractions">
+                    <div class="wrapper view_useractions_parent">
+                        <div id="dynamic_deposit" data-action="deposit">
+                            <form id="form_deposit" onSubmit={handleOpenReceiverAccount}>                                
+                                <div class="input-group">
+                                    <label> Deposit Amount </label>
+                                    <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} />
+                                </div>
+                                <div class="input-group">
+                                    <button onClick={handleWithdraw}>
+                                        <i class="ion-android-checkmark-circle"></i>
+                                        &nbsp;
+                                        Withdraw
+                                    </button>
+                                    <button onClick={handleDeposit}>
+                                        <i class="ion-android-checkmark-circle"></i>
+                                        &nbsp;
+                                        Deposit
+                                    </button>
+                                    <button onClick={handleTransfer}>
+                                        <i class="ion-android-checkmark-circle"></i>
+                                        &nbsp;
+                                        Transfer
+                                    </button>
+                                                    
+                                    <div class="input-group spacing">
+                                        <label> Receiver Account </label>
+                                        <select onChange={handleReceiverAccount}>
+                                            <option value='Select an account'> -- Select An Account --</option>
+                                                { storageData.map((receiverAccount) =>  
+                                                    <option key={receiverAccount.name} value={receiverAccount.value}>{receiverAccount.name}</option>)}
+                                        </select>
+                                    </div>
+                                    <div class="input-group">
+                                        <button type="submit">
+                                            <i class="ion-android-checkmark-circle"></i>
+                                            &nbsp;
+                                            Show Account
+                                        </button>
+                                    </div>
+                                    <br />
+                                    <p>Php: {receiverAmount}</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
     )
 }
 

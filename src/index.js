@@ -4,12 +4,12 @@ import './index.css';
 // import App from './components/exercise'
 import reportWebVitals from './reportWebVitals';
 import AddNewUser from './components/registration'
-// import LoginUser from './components/login'
+import LoginUser from './components/login'
 import UserDashboard from './components/accountActivity'
 
 ReactDOM.render(
   <React.StrictMode>
-    <AddNewUser />
+    {/* <AddNewUser /> */}
     {/* <LoginUser /> */}
     <UserDashboard />
   </React.StrictMode>,

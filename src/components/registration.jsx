@@ -1,5 +1,8 @@
 import React, {useState} from "react";
 import { render } from "react-dom";
+import "../App.css";
+import logo from "../assets/images/logo.png";
+import piggyBank from "../assets/images/piggybank.gif";
 
 // export default class RegisterUser extends Component{
 //     state = {
@@ -69,16 +72,47 @@ const AddNewUser = () => {
     
 
     return(
-        <div>
-            <p>Open New Bank Account</p>
-            <form onSubmit={handleClick}>
-            <label> Full Name:</label>
-            <input name="fullname" value={name} onChange={handleChangeName} />
-            <label> Balance:</label>
-            <input name="balance" value={bal} onChange={handleChangeBalance} />
-            <button type="submit">Register User</button>
-            </form>
-        </div>
+        <section id="view_initial">
+           <nav>
+                <img src={logo} />
+                <ul class="nav-options">
+                    <li class="active-nav" data-view="register">Register</li>
+                    <li data-view="login">Login</li>
+                </ul>
+            </nav>
+            <div>
+                <article class="view_initial_img">
+                    <h1>
+                        PiggyBank<span>.</span>
+                    </h1>
+                    <p>Your in-browser memory bank!</p>
+                    <img src={piggyBank} alt="PiggyBank" />
+                </article>
+                <article class="view_initial_nav">
+                    <div class="view_initial_nav_dynamic">
+                        <div id="dynamic_register" data-view="register">
+                            <form id="form_register" onSubmit={handleClick}>
+                                <div class="input-group">
+                                    <label> Full Name:</label>
+                                    <input type='text' name="fullname" value={name} onChange={handleChangeName} />
+                                </div>
+                                <div class="input-group">
+                                    <label> Balance:</label>
+                                    <input type='number' name="balance" value={bal} onChange={handleChangeBalance} />
+                                </div>
+                                <div class="input-group">
+                                    <button type="submit">
+                                        <i class="ion-android-checkmark-circle"></i>
+                                        &nbsp;
+                                        Register User
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
     )
 }
 
