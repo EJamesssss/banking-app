@@ -3,6 +3,8 @@ import "../App.css";
 import logo from "../assets/images/logo.png";
 import edit from "../assets/images/edit.png";
 import user from "../assets/images/user.png";
+import history from "../assets/images/history.jpg";
+import Modal from './modal'
 
 const UserDashboard = () => {
     let storageData = JSON.parse(localStorage.getItem('allAccounts'))
@@ -176,6 +178,8 @@ const UserDashboard = () => {
 
     }
 
+    const [modalOpen, setModalOpen] = useState(false)
+
     return(
         <section id="view_loggedin">
             <nav>
@@ -186,9 +190,16 @@ const UserDashboard = () => {
                     </h1>
                 </div>
                 <ul className="nav-options">
-                    <li id="editaccount">
-                        <img src={edit} title="Edit Account" />
+                    <li id="editaccount" onClick={() => {
+                        setModalOpen(true);
+                        }}
+                        >
+                        <img src={history} title="Edit Account" />
                     </li>
+                    {modalOpen && <Modal closeModal={setModalOpen} />}
+                    {/* <li id="editaccount">
+                        <img src={edit} title="Edit Account" />
+                    </li> */}
                     <li id="logout">Logout</li>
                 </ul>
             </nav>
@@ -203,7 +214,7 @@ const UserDashboard = () => {
                                 </h1>
                                 <p id="user_accountcreation">Mon Mar 14, 2022</p>
                                 <p id="user_accountnumber">
-                                    <span>Account Number: &nbsp; <i className="ion-card"></i></span>
+                                    <span>Account Number: &nbsp; <i className="ion-card"> &nbsp; </i></span>
                                     <span id="accountnumber">{acctNumber}</span>
                                 </p>
                                 <p id="user_balance">
@@ -212,29 +223,36 @@ const UserDashboard = () => {
                                 </p>
                             </div>
                         </div>
-
-                        <div className="user_informations2">
-                            <form onSubmit={handleOpenAccountDetails}>
-                                    <label> User Account </label>
-                                    <select  className="accountNames" onChange={handleSelectedAccount}>
-                                        <option value=' '> -- Select An Account --</option>
-                                            { storageData.map((acctName) =>  
-                                                <option key={acctName.name} value={acctName.value}>{acctName.name}</option>)}
-                                    </select>
-                                    <button className="asdf" type="submit">
-                                        <i className="ion-android-checkmark-circle"></i>
-                                        &nbsp;
-                                        Show Account
-                                    </button>
-                            </form>
-                        </div>
                     </div>
                 </article>
                 <article className="view_useractions">
+                <div className="wrapper view_useractions_parent">
+                        <div id="dynamic_deposit" data-action="deposit">
+                            <form id="form_deposit" onSubmit={handleOpenAccountDetails}>                                
+                                <div className="input-group"> 
+                                    <div className="input-group spacing">
+                                        <label> User Account </label>
+                                        <select onChange={handleSelectedAccount}>
+                                            <option value=' '> -- Select An Account --</option>
+                                                { storageData.map((acctName) =>  
+                                                    <option key={acctName.name} value={acctName.value}>{acctName.name}</option>)}
+                                        </select>
+                                    </div>
+                                    <div className="input-group">
+                                        <button type="submit">
+                                            <i className="ion-android-checkmark-circle"></i>
+                                            &nbsp;
+                                            Show Account
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div className="wrapper view_useractions_parent">
                         <div id="dynamic_deposit" data-action="deposit">
                             <form id="form_deposit" onSubmit={handleOpenReceiverAccount}>                                
-                                <div className="input-group">
+                                <div className="input-group spacing">
                                     <label> Deposit Amount </label>
                                     <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} />
                                 </div>

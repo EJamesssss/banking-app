@@ -78,7 +78,7 @@ body main {
   color: #ffffff; }
 
 .modal {
-  display: none;
+  display: block !important;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -95,6 +95,10 @@ body main {
   border: none;
   width: 35%;
   height: max-content; }
+
+  .modal-content > button {
+    float: right;
+  }
   .modal-content .input-group-modal:last-child {
     margin-bottom: 0px !important; }
   .modal-content .input-group-modal {
@@ -2544,7 +2548,7 @@ section#view_loggedin {
             border: 2px solid white;
             background-color: white;
             color: #00BDFE; }
-  section#view_loggedin div {
+  section#view_loggedin > div {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -2747,8 +2751,23 @@ section#view_loggedin {
             background-color: rgba(179, 226, 255, 0.5); 
             margin-top: 3px;}
             .spacing {
-              margin-top: 87px;
+              margin-top: 30px;
+              width: 100%;
             }
+
+            .selectfield{
+              width: 100%;
+            border: none;
+            border-radius: 10px;
+            border-bottom: 5px solid #3973AB;
+            font-size: 18px;
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.85);
+            padding: 7.5px;
+            background-color: rgba(179, 226, 255, 0.5); 
+            margin-top: 3px;
+            }
+
             .accountNames{
             width: 40vw;
             border: none;
@@ -2875,3 +2894,4 @@ section#view_loggedin {
                 section#view_loggedin div .view_useractions .wrapper #dynamic_transactions .dynamic_transactions_container #transactions_list li .transactions_listitem_main .transactions_listitem_amount {
                   font-weight: 700;
                   color: #ff6200; }
+                
