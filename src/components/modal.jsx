@@ -11,7 +11,7 @@ function Modal({ closeModal }) {
                     <h1>Transaction History</h1>
                 </div>
                 <div className="input-group-modal">
-                    <p>Withdraw</p>
+                    <p>Withdra</p>
                     <p>Deposit</p>
                     <p>Transfer</p>
                 </div>

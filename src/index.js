@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './components/exercise'
+import App from './App'
 import reportWebVitals from './reportWebVitals';
-import AddNewUser from './components/registration'
-import LoginUser from './components/login'
-import UserDashboard from './components/accountActivity'
+// import AddNewUser from './components/registration'
+// import LoginUser from './components/login'
+// import UserDashboard from './components/accountActivity'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <AddNewUser /> */}
-    {/* <LoginUser /> */}
-    <UserDashboard />
+    {/* <AddNewUser />
+    <LoginUser />
+    <UserDashboard /> */}
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
