@@ -255,8 +255,7 @@ const UserDashboard = () => {
                                 <div className="input-group spacing">
                                     <label> Deposit Amount </label>
                                     <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} />
-                                </div>
-                                <div className="input-group">
+
                                     <button onClick={handleWithdraw}>
                                         <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
@@ -272,7 +271,8 @@ const UserDashboard = () => {
                                         &nbsp;
                                         Transfer
                                     </button>
-                                                    
+                                </div>
+                                <div className="input-group">                                                  
                                     <div className="input-group spacing">
                                         <label> Receiver Account </label>
                                         <select onChange={handleReceiverAccount}>
