@@ -22,15 +22,6 @@ const AllUsers = () => {
     }
 
 
-    const handleEditUserData = (e) => {
-        e.preventDefault()
-
-        const fieldName = e.target.getAttribute("name")
-        const fieldValue = e.target.value
-
-        const newFormData = {...editUserData}
-        
-    }
 
     return(
         <div className="tableWrapper">

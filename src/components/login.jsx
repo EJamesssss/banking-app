@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import { Link } from "react-router-dom";
 import { render } from "react-dom";
 import "../App.css";
 import logo from "../assets/images/logo.png";
@@ -18,15 +19,16 @@ const LoginUser = (props) => {
                 <img src={logo} />
                 <ul className="nav-options">
                     <li data-view="register">Register</li>
-                    <li className="active-nav" data-view="login">Login</li>
+                    <Link to="admin/dashboard" style={{textDecoration: 'none'}}><li className="active-nav" data-view="login" >Login</li></Link>
+                    {/* <li className="active-nav" data-view="login" >Login</li> */}
                 </ul>
             </nav>
             <div>
                 <article className="view_initial_img">
                     <h1>
-                        InBank<span>.</span>
+                        PiggyBank<span>.</span>
                     </h1>
-                    <p>Your in-browser memory bank!</p>
+                    {/* <p>Your in-browser memory bank!</p> */}
                     <img src={piggyBank} alt="PiggyBank" />
                 </article>
                 <article className="view_initial_nav">
