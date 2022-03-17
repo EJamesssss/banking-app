@@ -4,6 +4,7 @@ import AddNewUser from './components/registration'
 import LoginUser from './components/login'
 import UserDashboard from './components/accountActivity'
 import NavBar from './components/nav';
+import AllUsers from './components/alluserstable';
 
 
 function App (){
@@ -14,6 +15,7 @@ function App (){
                 <Route path='admin' element={<NavBar />} >
                     <Route path='dashboard' element={<UserDashboard />} />
                     <Route path='adduser' element={<AddNewUser />} />
+                    <Route path='users' element={<AllUsers />} />
                 </Route>
             </Routes>
         </Router>

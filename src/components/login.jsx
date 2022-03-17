@@ -16,36 +16,36 @@ const LoginUser = (props) => {
         <section id="view_initial">
             <nav>
                 <img src={logo} />
-                <ul class="nav-options">
+                <ul className="nav-options">
                     <li data-view="register">Register</li>
-                    <li class="active-nav" data-view="login">Login</li>
+                    <li className="active-nav" data-view="login">Login</li>
                 </ul>
             </nav>
             <div>
-                <article class="view_initial_img">
+                <article className="view_initial_img">
                     <h1>
                         InBank<span>.</span>
                     </h1>
                     <p>Your in-browser memory bank!</p>
                     <img src={piggyBank} alt="PiggyBank" />
                 </article>
-                <article class="view_initial_nav">
-                    <div class="view_initial_nav_dynamic">
+                <article className="view_initial_nav">
+                    <div className="view_initial_nav_dynamic">
                         <div id="dynamic_login" data-view="login">
                             <form id="form_login" onSubmit={handleClick}>
-                                <div class="input-group">
+                                <div className="input-group">
                                     <label> Full Name: {name}</label>
                                     <input type='text' value={name} onSubmit={e => setName(e.target.value)} />
                                 </div>
 
-                                <div class="input-group">
+                                <div className="input-group">
                                     <label> Password: {pass}</label>
                                     <input type='password' value={pass} onSubmit={e => setPass(e.target.value)} />
                                 </div>
                                 
-                                <div class="input-group">
+                                <div className="input-group">
                                     <button type="submit">
-                                        <i class="ion-android-checkmark-circle"></i>
+                                        <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
                                         Register User
                                     </button>

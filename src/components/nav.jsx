@@ -8,8 +8,9 @@ const NavBar = () => {
     return(
         <div>
             <nav>
-                <a href="dashboard">Dashboard</a>
-                <a href="adduser">Add user</a>
+                <Link to="dashboard">Dashboard</Link>
+                <Link to="adduser">Add User</Link>
+                <Link to="users">Show Users</Link>
             </nav>
             <Outlet />
         </div>
