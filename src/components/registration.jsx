@@ -62,19 +62,10 @@ const AddNewUser = () => {
 
     return(
         <section id="view_initial">
-           <nav>
-                <img src={logo} />
-                <ul className="nav-options">
-                    <li className="active-nav" data-view="register">Register</li>
-                    <li data-view="login">Login</li>
-                </ul>
-            </nav>
             <div>
                 <article className="view_initial_img">
-                    <h1>
-                        PiggyBank<span>.</span>
-                    </h1>
-                    <p>Your in-browser memory bank!</p>
+                    <p>Small steps to a better future with</p>
+                    <p><b>PiggyBank.</b></p>
                     <img src={piggyBank} alt="PiggyBank" />
                 </article>
                 <article className="view_initial_nav">

@@ -1,6 +1,7 @@
 import React, {useState, Fragment} from "react";
 import ReadOnlyRows from './readrows'
 import EditableRows from "./editablerow";
+import "../App.css";
 
 
 const AllUsers = () => {
@@ -32,26 +33,24 @@ const AllUsers = () => {
     }
 
     return(
-        <div>
-            <form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Account Number</th>
-                            <th>Balance</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userList.map((user) =>(
-                            <Fragment>
-                                {editUserID === user.accountnumber ? (<EditableRows />) : (<ReadOnlyRows user={user} handleEditClick={handleEditClick}/>)}
-                            </Fragment>
-                        ))}
-                    </tbody>
-                </table>
-            </form>
+        <div className="tableWrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Account Number</th>
+                        <th>Balance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {userList.map((user) =>(
+                        <Fragment>
+                            {editUserID === user.accountnumber ? (<EditableRows />) : (<ReadOnlyRows user={user} handleEditClick={handleEditClick}/>)}
+                        </Fragment>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 }

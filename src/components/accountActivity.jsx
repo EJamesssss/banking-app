@@ -169,27 +169,6 @@ const UserDashboard = () => {
 
     return(
         <section id="view_loggedin">
-            <nav>
-                <div className="nav-brand">
-                    <img src={logo} />
-                    <h1>
-                        PiggyBank<span>.</span>
-                    </h1>
-                </div>
-                <ul className="nav-options">
-                    <li id="editaccount" onClick={() => {
-                        setModalOpen(true);
-                        }}
-                        >
-                        <img src={history} title="Edit Account" />
-                    </li>
-                    {modalOpen && <Modal closeModal={setModalOpen} withdrawAmount={newAmount} />}
-                    {/* <li id="editaccount">
-                        <img src={edit} title="Edit Account" />
-                    </li> */}
-                    <li id="logout">Logout</li>
-                </ul>
-            </nav>
             <div>
                 <article className="view_usercard">
                     <div className="wrapper">
@@ -199,7 +178,6 @@ const UserDashboard = () => {
                                 <h1 id="user_name">
                                     <span id="name">{acctNameHolder}</span>
                                 </h1>
-                                <p id="user_accountcreation">Mon Mar 14, 2022</p>
                                 <p id="user_accountnumber">
                                     <span>Account Number: &nbsp; <i className="ion-card"> &nbsp; </i></span>
                                     <span id="accountnumber">{acctNumber}</span>
@@ -210,10 +188,21 @@ const UserDashboard = () => {
                                 </p>
                             </div>
                         </div>
+
+                        <div>
+                            <div className="history" onClick={() => {
+                                setModalOpen(true);
+                                }}
+                                >
+                                <img src={history} title="Edit Account" />  
+                            </div>
+                            {modalOpen && <Modal closeModal={setModalOpen} withdrawAmount={newAmount} />}
+                        </div>
                     </div>
+
                 </article>
                 <article className="view_useractions">
-                <div className="wrapper view_useractions_parent">
+                    <div className="wrapper view_useractions_parent">
                         <div id="dynamic_deposit" data-action="deposit">
                             <form id="form_deposit" onSubmit={handleOpenAccountDetails}>                                
                                 <div className="input-group"> 
@@ -236,11 +225,12 @@ const UserDashboard = () => {
                             </form>
                         </div>
                     </div>
+                    
                     <div className="wrapper view_useractions_parent">
                         <div id="dynamic_deposit" data-action="deposit">
                             <form id="form_deposit" onSubmit={handleOpenReceiverAccount}>                                
                                 <div className="input-group spacing">
-                                    <label> Deposit Amount </label>
+                                    <label> Amount </label>
                                     <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} />
 
                                     <button onClick={handleWithdraw}>

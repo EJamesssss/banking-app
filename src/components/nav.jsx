@@ -1,19 +1,30 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import logo from "../assets/images/logo.png";
+import "../App.css";
 
 
 
 const NavBar = () => {
 
     return(
-        <div>
+        <section id="view_loggedin">
             <nav>
-                <Link to="dashboard">Dashboard</Link>
-                <Link to="adduser">Add User</Link>
-                <Link to="users">Show Users</Link>
+                <div className="nav-brand">
+                    <img src={logo} />
+                    <h1>
+                        PiggyBank<span>.</span>
+                    </h1>
+                </div>
+                <ul className="nav-options">
+                    <Link to="dashboard"><li> Dashboard </li></Link>
+                    <Link to="adduser"><li> Add User </li></Link>
+                    <Link to="users"><li> Show Users </li></Link> 
+                    <li>Logout</li>
+                </ul> 
             </nav>
             <Outlet />
-        </div>
+        </section>
     )
 
 }
