@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import { render } from "react-dom";
 import "../App.css";
 import logo from "../assets/images/logo.png";
 import piggyBank from "../assets/images/piggybank.gif";
@@ -36,7 +35,7 @@ const AddNewUser = () => {
 
         var oldData = JSON.parse(localStorage.getItem('allAccounts'))
 
-        if(name == '' || name == null || bal == '' || bal == null){
+        if(name === '' || name === null || bal === '' || bal === null){
             alert(`Please fill up all the needed data.`)
         }else{
             if(oldData.length === 0){

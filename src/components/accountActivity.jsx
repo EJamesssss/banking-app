@@ -68,22 +68,7 @@ const UserDashboard = () => {
             alert("Please enter an amount to withdraw")
         }else{
             if(newAmount > existingAmount){
-                const neg = newAmountInt - existingAmount
-                let historyEntry = `Withdraw Php${newAmountInt}`
-                alert(`Your current balance is insufficient, however, the bank will lend you Php${neg} to complete the transaction and will automatically deducted on your next deposit`)
-                for(let w = 0; w < localStorage.length; w++){
-                    if(acctName == storageData[w].name){
-                        storageData[w].balance = updatedAmount
-                        let hist = storageData[w].history
-                        hist.push(historyEntry)
-                    }
-                }
-                localStorage.setItem('allAccounts', JSON.stringify(storageData))
-        
-                setAcctAmount(updatedAmount)
-    
-                alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
-                setNewAmount('')
+                alert('Insufficient funds!')
             }else{
                 let historyEntry = `Withdraw Php${newAmountInt}`
                 for(let w = 0; w < localStorage.length; w++){
@@ -114,6 +99,8 @@ const UserDashboard = () => {
         if(newAmount == "" || newAmount == null){
             alert("Please enter an amount to deposit")
         }else{
+            console.log(updateDeposit)
+            console.log(typeof(updateDeposit))
             let historyEntry = `Deposit Php${newAmountDeposit}`
             for(let d = 0; d < localStorage.length; d++){
                 if(acctName == storageData[d].name){
@@ -196,7 +183,7 @@ const UserDashboard = () => {
                         >
                         <img src={history} title="Edit Account" />
                     </li>
-                    {modalOpen && <Modal closeModal={setModalOpen} />}
+                    {modalOpen && <Modal closeModal={setModalOpen} withdrawAmount={newAmount} />}
                     {/* <li id="editaccount">
                         <img src={edit} title="Edit Account" />
                     </li> */}
