@@ -199,7 +199,7 @@ const UserDashboard = () => {
                                 <h1 id="user_name">
                                     <span id="name">{acctNameHolder}</span>
                                 </h1>
-                                <p id="user_accountcreation">Mon Mar 14, 2022</p>
+                                {/* <p id="user_accountcreation">Mon Mar 14, 2022</p> */}
                                 <p id="user_accountnumber">
                                     <span>Account Number: &nbsp; <i className="ion-card"> &nbsp; </i></span>
                                     <span id="accountnumber">{acctNumber}</span>
