@@ -17,6 +17,7 @@ const AddNewUser = () => {
         setBal(e.target.value)
     }
 
+
     const handleClick = (e) => {
         e.preventDefault()
 

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useParams } from "react-router-dom";
 import "../App.css";
 import logo from "../assets/images/logo.png";
 import edit from "../assets/images/edit.png";
@@ -10,8 +11,10 @@ const UserDashboard = () => {
     let storageData = JSON.parse(localStorage.getItem('allAccounts'))
     // console.log(storageData)
 
-    let [acctName, setAcctName] = useState(' --- ')
-    let [acctNameHolder, setAcctNameHolder] = useState('')
+
+    let {profname} = useParams()
+    let [acctName, setAcctName] = useState(profname)
+    let [acctNameHolder, setAcctNameHolder] = useState(profname)
     let [acctAmount, setAcctAmount] = useState('')
     let [newAmount, setNewAmount] = useState('')
     let [receiverAccount, setReceiverAccount] = useState('Select an Account')
@@ -81,8 +84,10 @@ const UserDashboard = () => {
                 localStorage.setItem('allAccounts', JSON.stringify(storageData))
         
                 setAcctAmount(updatedAmount)
-    
+
                 alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
+                setModalOpen(true)
+                {modalOpen && <Modal closeModal={setModalOpen} />}
                 setNewAmount('')
             }
         }
@@ -169,7 +174,7 @@ const UserDashboard = () => {
 
     return(
         <section id="view_loggedin">
-            <div>
+            <div onLoad={handleOpenAccountDetails}>
                 <article className="view_usercard">
                     <div className="wrapper">
                         <div className="user_informations">
@@ -231,7 +236,7 @@ const UserDashboard = () => {
                             <form id="form_deposit" onSubmit={handleOpenReceiverAccount}>                                
                                 <div className="input-group spacing">
                                     <label> Amount </label>
-                                    <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} />
+                                    <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} min="0" />
 
                                     <button onClick={handleWithdraw}>
                                         <i className="ion-android-checkmark-circle"></i>

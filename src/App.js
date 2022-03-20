@@ -5,6 +5,7 @@ import LoginUser from './components/login'
 import UserDashboard from './components/accountActivity'
 import NavBar from './components/nav';
 import AllUsers from './components/alluserstable';
+import UserManagement from './components/userManagement'
 
 
 function App (){
@@ -13,7 +14,8 @@ function App (){
             <Routes>
                 <Route path='/' element={<LoginUser />} />
                 <Route path='admin' element={<NavBar />} >
-                    <Route path='dashboard' element={<UserDashboard />} />
+                    <Route index element={<UserDashboard />} />
+                    <Route path=':profname' element={<UserDashboard />} />
                     <Route path='adduser' element={<AddNewUser />} />
                     <Route path='users' element={<AllUsers />} />
                 </Route>

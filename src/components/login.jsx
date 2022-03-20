@@ -5,12 +5,14 @@ import "../App.css";
 import logo from "../assets/images/logo.png";
 import piggyBank from "../assets/images/piggybank.gif";
 
-const LoginUser = (props) => {
-    const [name, setName] = useState(props.name)
-    const [pass, setPass] = useState(props.pass)
+const LoginUser = () => {
+    const [name, setName] = useState('')
+    const [pass, setPass] = useState('')
+
+    const profilelink = "admin/" + name
 
     const handleClick = (e) => {
-        setName = ("asdasd")
+        setName(e.target.value)
     }
 
     return(
@@ -19,7 +21,7 @@ const LoginUser = (props) => {
                 <img src={logo} />
                 <ul className="nav-options">
                     <li data-view="register">Register</li>
-                    <Link to="admin/dashboard" style={{textDecoration: 'none'}}><li className="active-nav" data-view="login" >Login</li></Link>
+                    <Link to={profilelink} style={{textDecoration: 'none'}}><li className="active-nav" data-view="login" >Login</li></Link>
                     {/* <li className="active-nav" data-view="login" >Login</li> */}
                 </ul>
             </nav>
@@ -28,7 +30,6 @@ const LoginUser = (props) => {
                     <h1>
                         PiggyBank<span>.</span>
                     </h1>
-                    {/* <p>Your in-browser memory bank!</p> */}
                     <img src={piggyBank} alt="PiggyBank" />
                 </article>
                 <article className="view_initial_nav">
@@ -36,12 +37,12 @@ const LoginUser = (props) => {
                         <div id="dynamic_login" data-view="login">
                             <form id="form_login" onSubmit={handleClick}>
                                 <div className="input-group">
-                                    <label> Full Name: {name}</label>
-                                    <input type='text' value={name} onSubmit={e => setName(e.target.value)} />
+                                    <label> Full Name:</label>
+                                    <input type='text' value={name} onChange={handleClick} />
                                 </div>
 
                                 <div className="input-group">
-                                    <label> Password: {pass}</label>
+                                    <label> Password:</label>
                                     <input type='password' value={pass} onSubmit={e => setPass(e.target.value)} />
                                 </div>
                                 

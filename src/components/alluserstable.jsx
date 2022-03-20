@@ -9,16 +9,27 @@ const AllUsers = () => {
 
     const [userList, setUserList] = useState(userData)
     const [editUserID, setEditUserID] = useState(null)
+    const [hist, setHistory] = useState([])
 
     const [editUserData,setEditUserData] = useState({
         "name": "",
         "balance": "",
-        "accountnumber": ""
+        "accountnumber": "",
+        "history": []
     })
 
     const handleEditClick = (e, user) => {
         e.preventDefault()
         setEditUserID(user.accountnumber)
+
+        const formValues = {
+            name: user.name,
+            balance: user.balance,
+            accountnumber: user.accountnumber,
+            history: user.history
+        }
+
+        setEditUserData(formValues)
     }
 
 
@@ -37,7 +48,7 @@ const AllUsers = () => {
                 <tbody>
                     {userList.map((user) =>(
                         <Fragment>
-                            {editUserID === user.accountnumber ? (<EditableRows />) : (<ReadOnlyRows user={user} handleEditClick={handleEditClick}/>)}
+                            {editUserID === user.accountnumber ? (<EditableRows editUserData={editUserData} handleEditClick={handleEditClick} />) : (<ReadOnlyRows user={user} handleEditClick={handleEditClick}/>)}
                         </Fragment>
                     ))}
                 </tbody>

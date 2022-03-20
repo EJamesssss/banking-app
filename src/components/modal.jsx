@@ -1,6 +1,5 @@
 import React from 'react';
 import "../App.css";
-import UserDashboard from './accountActivity'
 
 function Modal({ closeModal, withdrawAmount }) {
     return (
@@ -11,7 +10,7 @@ function Modal({ closeModal, withdrawAmount }) {
                     <h1>Transaction History</h1>
                 </div>
                 <div className="input-group-modal">
-                    <p>Withdraw: {withdrawAmount}</p>
+                    <p>Withdraw: </p>
                     <p>Deposit</p>
                     <p>Transfer</p>
                 </div>
