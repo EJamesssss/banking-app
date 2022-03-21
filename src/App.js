@@ -5,6 +5,7 @@ import LoginUser from './components/login'
 import UserDashboard from './components/accountActivity'
 import NavBar from './components/nav';
 import AllUsers from './components/alluserstable';
+import UserRegistration from './components/usersRegistration';
 
 
 function App (){
@@ -12,6 +13,7 @@ function App (){
         <Router>
             <Routes>
                 <Route path='/' element={<LoginUser />} />
+                <Route path='usersreg' element={<UserRegistration />} />
                 <Route path='admin' element={<NavBar />} >
                     <Route index element={<UserDashboard />} />
                     <Route path=':profname' element={<UserDashboard />} />

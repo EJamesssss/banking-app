@@ -39,6 +39,11 @@ body main {
   border-color: #00BDFE !important;
   color: white !important; }
 
+nav a.active li{
+  background-color: #00BDFE !important;
+  border-color: #00BDFE !important;
+  color: white !important; }
+
 .active-nav i, .active-nav span {
   color: white; }
 
