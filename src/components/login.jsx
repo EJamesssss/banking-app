@@ -19,7 +19,7 @@ const LoginUser = (props) => {
                 <img src={logo} />
                 <ul className="nav-options">
                     <li data-view="register">Register</li>
-                    <Link to="admin/dashboard" style={{textDecoration: 'none'}}><li className="active-nav" data-view="login" >Login</li></Link>
+                    <Link to="admin" style={{textDecoration: 'none'}}><li className="active-nav" data-view="login" >Login</li></Link>
                     {/* <li className="active-nav" data-view="login" >Login</li> */}
                 </ul>
             </nav>
@@ -49,7 +49,7 @@ const LoginUser = (props) => {
                                     <button type="submit">
                                         <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
-                                        Register User
+                                        Login
                                     </button>
                                 </div>
                             </form>

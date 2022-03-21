@@ -17,7 +17,7 @@ const NavBar = () => {
                     </h1>
                 </div>
                 <ul className="nav-options">
-                    <Link to="dashboard"><li> Dashboard </li></Link>
+                    <Link to=""><li> Dashboard </li></Link>
                     <Link to="adduser"><li> Add User </li></Link>
                     <Link to="users"><li> Show Users </li></Link> 
                     <li>Logout</li>

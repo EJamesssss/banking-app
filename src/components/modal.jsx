@@ -1,8 +1,8 @@
 import React from 'react';
 import "../App.css";
-import UserDashboard from './accountActivity'
+// import UserDashboard from './accountActivity'
 
-function Modal({ closeModal, withdrawAmount }) {
+const Modal = ({ closeModal, withdrawAmount, modalContent }) => {
     return (
         <div className="modal">
             <div className="modal-content">
@@ -14,6 +14,7 @@ function Modal({ closeModal, withdrawAmount }) {
                     <p>Withdraw: {withdrawAmount}</p>
                     <p>Deposit</p>
                     <p>Transfer</p>
+                    {/* <p>Modal Content: {modalContent}</p> */}
                 </div>
                 <div className="footer"></div>
             </div>

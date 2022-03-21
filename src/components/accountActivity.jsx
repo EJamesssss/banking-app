@@ -4,32 +4,32 @@ import logo from "../assets/images/logo.png";
 import edit from "../assets/images/edit.png";
 import user from "../assets/images/user.png";
 import history from "../assets/images/history.jpg";
-import Modal from './modal'
+import Modal from './modal';
 
 const UserDashboard = () => {
-    let storageData = JSON.parse(localStorage.getItem('allAccounts'))
+    const storageData = JSON.parse(localStorage.getItem('allAccounts'))
     // console.log(storageData)
 
-    let [acctName, setAcctName] = useState(' --- ')
-    let [acctNameHolder, setAcctNameHolder] = useState('')
-    let [acctAmount, setAcctAmount] = useState('')
-    let [newAmount, setNewAmount] = useState('')
-    let [receiverAccount, setReceiverAccount] = useState('Select an Account')
-    let [receiverAmount, setReceiverAmount] = useState('')
-    let [acctNumber, setAcctNumber] = useState('')
+    const [acctName, setAcctName] = useState(' --- ')
+    const [acctNameHolder, setAcctNameHolder] = useState('')
+    const [acctAmount, setAcctAmount] = useState('')
+    const [newAmount, setNewAmount] = useState('')
+    const [receiverAccount, setReceiverAccount] = useState('Select an Account')
+    const [receiverAmount, setReceiverAmount] = useState('')
+    const [acctNumber, setAcctNumber] = useState('')
+    const [modalOpen, setModalOpen] = useState(false)
+    const [txnResponse, setTxnResponse] = useState('')
 
 
-
-
-    let handleSelectedAccount = (e) => {
+    const handleSelectedAccount = (e) => {
         setAcctName(e.target.value)
     }
 
-    let handleReceiverAccount = (e) => {
+    const handleReceiverAccount = (e) => {
         setReceiverAccount(e.target.value)
     }
 
-    let handleOpenAccountDetails = (e) => {
+    const handleOpenAccountDetails = (e) => {
         e.preventDefault()
 
         for(let actDet = 0;actDet < storageData.length;actDet++){
@@ -43,7 +43,7 @@ const UserDashboard = () => {
 
     }
 
-    let handleOpenReceiverAccount = (e) => {
+    const handleOpenReceiverAccount = (e) => {
         e.preventDefault()
 
         for(let r = 0;r < storageData.length;r++){{
@@ -53,11 +53,11 @@ const UserDashboard = () => {
         }}
     }
 
-    let handleNewAmount = (e) => {
+    const handleNewAmount = (e) => {
         setNewAmount(e.target.value)
     }
 
-    let handleWithdraw = (e) => {
+    const handleWithdraw = (e) => {
         e.preventDefault()
         var existingAmount = parseInt(acctAmount)
         var newAmountInt = parseInt(newAmount)
@@ -81,15 +81,18 @@ const UserDashboard = () => {
                 localStorage.setItem('allAccounts', JSON.stringify(storageData))
         
                 setAcctAmount(updatedAmount)
-    
+                // const modalMessage = `Withdraw successful: ${newAmount} to account of ${acctName}`
                 alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
                 setNewAmount('')
+                // setTxnResponse(modalMessage)
+                // setModalOpen(true)
+                // {modalOpen && <Modal closeModal={setModalOpen} modalContent={txnResponse} />}
             }
         }
 
     }
 
-    let handleDeposit = (e) => {
+    const handleDeposit = (e) => {
         e.preventDefault()
         var existingAmountDeposit = parseInt(acctAmount)
         var newAmountDeposit = parseInt(newAmount)
@@ -118,7 +121,7 @@ const UserDashboard = () => {
 
     }
 
-    let handleTransfer = (e) => {
+    const handleTransfer = (e) => {
         e.preventDefault()
         var transferAmount = parseInt(newAmount)
         var senderAccount = parseInt(acctAmount)
@@ -164,8 +167,6 @@ const UserDashboard = () => {
 
 
     }
-
-    const [modalOpen, setModalOpen] = useState(false)
 
     return(
         <section id="view_loggedin">
