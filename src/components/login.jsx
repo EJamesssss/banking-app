@@ -15,6 +15,10 @@ const LoginUser = () => {
         setName(e.target.value)
     }
 
+    const handlePass = (e) => {
+        setPass(e.target.value)
+    }
+
     return(
         <section id="view_initial">
             <nav>
@@ -43,7 +47,7 @@ const LoginUser = () => {
 
                                 <div className="input-group">
                                     <label> Password:</label>
-                                    <input type='password' value={pass} onSubmit={e => setPass(e.target.value)} />
+                                    <input type='password' value={pass} onChange={handlePass} />
                                 </div>
                                 
                                 <div className="input-group">

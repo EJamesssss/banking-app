@@ -21,6 +21,32 @@ const UserDashboard = () => {
     let [receiverAmount, setReceiverAmount] = useState('')
     let [acctNumber, setAcctNumber] = useState('')
 
+    function saveHistory(trxType,sourceaccount,trxAmount, destinationaccount, remainingbalance){
+        const today = new Date()
+        const dd = String(today.getDate()).padStart(2,'0')
+        const mm = String(today.getMonth()+1).padStart(2,'0')
+        const yyyy = String(today.getFullYear())
+        const showDate = mm + '/' + dd + '/' + yyyy
+        console.log(showDate)
+        let trxHistory ={
+            date: showDate,
+            type: trxType,
+            sourceaccount: sourceaccount,
+            trxAmount: trxAmount,
+            destinationaccount: destinationaccount,
+            remainingbalance: remainingbalance
+        }
+
+        if(localStorage.getItem('trxhistory') == null){
+            localStorage.setItem('trxhistory',JSON.stringify([]))
+        }
+
+        let localHistory = JSON.parse(localStorage.getItem('trxhistory'))
+
+        localHistory.push(trxHistory)
+        localStorage.setItem('trxhistory',JSON.stringify(localHistory))
+    }
+
 
 
 
@@ -56,16 +82,18 @@ const UserDashboard = () => {
         }}
     }
 
-    let handleNewAmount = (e) => {
+    const handleNewAmount = (e) => {
         setNewAmount(e.target.value)
     }
 
-    let handleWithdraw = (e) => {
+    const handleWithdraw = (e) => {
         e.preventDefault()
-        var existingAmount = parseInt(acctAmount)
-        var newAmountInt = parseInt(newAmount)
+        const txntype = 'withdraw'
+        const destaccount = ''
+        const existingAmount = parseInt(acctAmount)
+        const newAmountInt = parseInt(newAmount)
 
-        var updatedAmount = (existingAmount - newAmountInt).toString()
+        const updatedAmount = (existingAmount - newAmountInt).toString()
 
         if(newAmount == "" || newAmount == null){
             alert("Please enter an amount to withdraw")
@@ -73,15 +101,9 @@ const UserDashboard = () => {
             if(newAmount > existingAmount){
                 alert('Insufficient funds!')
             }else{
-                let historyEntry = `Withdraw Php${newAmountInt}`
-                for(let w = 0; w < localStorage.length; w++){
-                    if(acctName == storageData[w].name){
-                        storageData[w].balance = updatedAmount
-                        let hist = storageData[w].history
-                        hist.push(historyEntry)
-                    }
-                }
+
                 localStorage.setItem('allAccounts', JSON.stringify(storageData))
+                saveHistory(txntype,acctName,newAmount,destaccount,updatedAmount)
         
                 setAcctAmount(updatedAmount)
 
@@ -96,25 +118,20 @@ const UserDashboard = () => {
 
     let handleDeposit = (e) => {
         e.preventDefault()
-        var existingAmountDeposit = parseInt(acctAmount)
-        var newAmountDeposit = parseInt(newAmount)
+
+        const txntype = 'deposit'
+        const destaccount = ''
+        const existingAmountDeposit = parseInt(acctAmount)
+        const newAmountDeposit = parseInt(newAmount)
 
         const updateDeposit = (existingAmountDeposit + newAmountDeposit).toString()
         
         if(newAmount == "" || newAmount == null){
             alert("Please enter an amount to deposit")
         }else{
-            console.log(updateDeposit)
-            console.log(typeof(updateDeposit))
-            let historyEntry = `Deposit Php${newAmountDeposit}`
-            for(let d = 0; d < localStorage.length; d++){
-                if(acctName == storageData[d].name){
-                    storageData[d].balance = updateDeposit
-                    let hist = storageData[d].history
-                    hist.push(historyEntry)
-                }
-            }
+
             localStorage.setItem('allAccounts', JSON.stringify(storageData))
+            saveHistory(txntype,acctName,newAmount,destaccount,updateDeposit)
     
             setAcctAmount(updateDeposit)
             alert(`Deposit successful: ${newAmountDeposit} to account of ${acctName}`)
@@ -125,9 +142,10 @@ const UserDashboard = () => {
 
     let handleTransfer = (e) => {
         e.preventDefault()
-        var transferAmount = parseInt(newAmount)
-        var senderAccount = parseInt(acctAmount)
-        var recAccount = parseInt(receiverAmount)
+        const transferAmount = parseInt(newAmount)
+        const senderAccount = parseInt(acctAmount)
+        const recAccount = parseInt(receiverAmount)
+        const txntype = 'transfer'
 
         //Sender Account
         const deductSender = (senderAccount - transferAmount).toString()
@@ -143,14 +161,13 @@ const UserDashboard = () => {
         }else if(acctName === receiverAccount){
             alert(`You cannot transfer to the same account`)
         }else{
-            let historyEntry = `Php${transferAmount} transfered to ${receiverAccount}`
             for(let sender = 0; sender < storageData.length;sender++){
                 if(acctName == storageData[sender].name){
                     storageData[sender].balance = deductSender
-                    let hist = storageData[sender].history
-                    hist.push(historyEntry)
                 }
             }
+            
+
     
     
             for(let rec = 0;rec < storageData.length;rec++){
@@ -160,6 +177,7 @@ const UserDashboard = () => {
             }
     
             localStorage.setItem('allAccounts',JSON.stringify(storageData))
+            saveHistory(txntype,acctName,newAmount,receiverAccount,deductSender)
             alert(`The amount ${transferAmount} has been transfered from ${acctName} to ${receiverAccount}`)
             setNewAmount("")
             setAcctAmount(deductSender)
