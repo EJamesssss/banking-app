@@ -5,7 +5,6 @@ import LoginUser from './components/login'
 import UserDashboard from './components/accountActivity'
 import NavBar from './components/nav';
 import AllUsers from './components/alluserstable';
-import UserManagement from './components/userManagement'
 
 
 function App (){

@@ -27,7 +27,6 @@ const AddNewUser = () => {
             "name": name,
             "balance": bal,
             "accountnumber": acctNumber,
-            "history": []
         }
 
         if(localStorage.getItem('allAccounts') == null){
