@@ -17,6 +17,7 @@ const AddNewUser = () => {
         setBal(e.target.value)
     }
 
+
     const handleClick = (e) => {
         e.preventDefault()
 
@@ -26,7 +27,6 @@ const AddNewUser = () => {
             "name": name,
             "balance": bal,
             "accountnumber": acctNumber,
-            "history": []
         }
 
         if(localStorage.getItem('allAccounts') == null){

@@ -14,6 +14,7 @@ function App (){
                 <Route path='/' element={<LoginUser />} />
                 <Route path='admin' element={<NavBar />} >
                     <Route index element={<UserDashboard />} />
+                    <Route path=':profname' element={<UserDashboard />} />
                     <Route path='adduser' element={<AddNewUser />} />
                     <Route path='users' element={<AllUsers />} />
                 </Route>
