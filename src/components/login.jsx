@@ -54,7 +54,7 @@ const LoginUser = () => {
                                     <button type="submit">
                                         <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
-                                        Register User
+                                        Login
                                     </button>
                                 </div>
                             </form>

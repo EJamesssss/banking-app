@@ -1,25 +1,24 @@
 import React, {useState} from "react";
-import { useParams } from "react-router-dom";
 import "../App.css";
 import logo from "../assets/images/logo.png";
 import edit from "../assets/images/edit.png";
 import user from "../assets/images/user.png";
 import history from "../assets/images/history.jpg";
-import Modal from './modal'
+import Modal from './modal';
 
 const UserDashboard = () => {
-    let storageData = JSON.parse(localStorage.getItem('allAccounts'))
+    const storageData = JSON.parse(localStorage.getItem('allAccounts'))
     // console.log(storageData)
 
-
-    let {profname} = useParams()
-    let [acctName, setAcctName] = useState(profname)
-    let [acctNameHolder, setAcctNameHolder] = useState(profname)
-    let [acctAmount, setAcctAmount] = useState('')
-    let [newAmount, setNewAmount] = useState('')
-    let [receiverAccount, setReceiverAccount] = useState('Select an Account')
-    let [receiverAmount, setReceiverAmount] = useState('')
-    let [acctNumber, setAcctNumber] = useState('')
+    const [acctName, setAcctName] = useState(' --- ')
+    const [acctNameHolder, setAcctNameHolder] = useState('')
+    const [acctAmount, setAcctAmount] = useState('')
+    const [newAmount, setNewAmount] = useState('')
+    const [receiverAccount, setReceiverAccount] = useState('Select an Account')
+    const [receiverAmount, setReceiverAmount] = useState('')
+    const [acctNumber, setAcctNumber] = useState('')
+    const [modalOpen, setModalOpen] = useState(false)
+    const [txnResponse, setTxnResponse] = useState('')
 
     function saveHistory(trxType,sourceaccount,trxAmount, destinationaccount, remainingbalance){
         const today = new Date()
@@ -48,17 +47,15 @@ const UserDashboard = () => {
     }
 
 
-
-
-    let handleSelectedAccount = (e) => {
+    const handleSelectedAccount = (e) => {
         setAcctName(e.target.value)
     }
 
-    let handleReceiverAccount = (e) => {
+    const handleReceiverAccount = (e) => {
         setReceiverAccount(e.target.value)
     }
 
-    let handleOpenAccountDetails = (e) => {
+    const handleOpenAccountDetails = (e) => {
         e.preventDefault()
 
         for(let actDet = 0;actDet < storageData.length;actDet++){
@@ -72,7 +69,7 @@ const UserDashboard = () => {
 
     }
 
-    let handleOpenReceiverAccount = (e) => {
+    const handleOpenReceiverAccount = (e) => {
         e.preventDefault()
 
         for(let r = 0;r < storageData.length;r++){{
@@ -106,17 +103,18 @@ const UserDashboard = () => {
                 saveHistory(txntype,acctName,newAmount,destaccount,updatedAmount)
         
                 setAcctAmount(updatedAmount)
-
+                // const modalMessage = `Withdraw successful: ${newAmount} to account of ${acctName}`
                 alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
-                setModalOpen(true)
-                {modalOpen && <Modal closeModal={setModalOpen} />}
                 setNewAmount('')
+                // setTxnResponse(modalMessage)
+                // setModalOpen(true)
+                // {modalOpen && <Modal closeModal={setModalOpen} modalContent={txnResponse} />}
             }
         }
 
     }
 
-    let handleDeposit = (e) => {
+    const handleDeposit = (e) => {
         e.preventDefault()
 
         const txntype = 'deposit'
@@ -140,7 +138,7 @@ const UserDashboard = () => {
 
     }
 
-    let handleTransfer = (e) => {
+    const handleTransfer = (e) => {
         e.preventDefault()
         const transferAmount = parseInt(newAmount)
         const senderAccount = parseInt(acctAmount)
@@ -188,11 +186,9 @@ const UserDashboard = () => {
 
     }
 
-    const [modalOpen, setModalOpen] = useState(false)
-
     return(
         <section id="view_loggedin">
-            <div onLoad={handleOpenAccountDetails}>
+            <div>
                 <article className="view_usercard">
                     <div className="wrapper">
                         <div className="user_informations">
@@ -254,7 +250,7 @@ const UserDashboard = () => {
                             <form id="form_deposit" onSubmit={handleOpenReceiverAccount}>                                
                                 <div className="input-group spacing">
                                     <label> Amount </label>
-                                    <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} min="0" />
+                                    <input type="number" name="newamount" value={newAmount} onChange={handleNewAmount} />
 
                                     <button onClick={handleWithdraw}>
                                         <i className="ion-android-checkmark-circle"></i>

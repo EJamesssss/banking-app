@@ -1,25 +1,21 @@
-import React from 'react';
+import React from "react"
 import "../App.css";
+import UserDashboard from './accountActivity';
 
-const Modal = ({ closeModal, withdrawAmount, modalContent }) => {
+const ModalAlert = ({ children }) => {
     return (
-        <div className="modal">
+        <div className="modal"> 
             <div className="modal-content">
                 <button onClick={() => closeModal(false)}> X </button>
                 <div className="title">
                     <h1>Transaction History</h1>
                 </div>
                 <div className="input-group-modal">
-                    <p>Withdraw: </p>
-                    <p>Deposit</p>
-                    <p>Transfer</p>
-                    {/* <p>Modal Content: {modalContent}</p> */}
+                    {children}
                 </div>
-                <div className="footer"></div>
             </div>
         </div>
     )
 }
 
-export default Modal;
-
+export default ModalAlert
