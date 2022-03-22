@@ -87,8 +87,8 @@ const UserDashboard = () => {
         e.preventDefault()
         const txntype = 'withdraw'
         const destaccount = ''
-        const existingAmount = parseInt(acctAmount)
-        const newAmountInt = parseInt(newAmount)
+        const existingAmount = parseFloat(acctAmount)
+        const newAmountInt = parseFloat(newAmount)
 
         const updatedAmount = (existingAmount - newAmountInt).toString()
 
@@ -98,7 +98,11 @@ const UserDashboard = () => {
             if(newAmount > existingAmount){
                 alert('Insufficient funds!')
             }else{
-
+                for(let w =0; w < storageData.length;w++){
+                    if(acctName == storageData[w].name){
+                        storageData[w].balance = updatedAmount
+                    }
+                }
                 localStorage.setItem('allAccounts', JSON.stringify(storageData))
                 saveHistory(txntype,acctName,newAmount,destaccount,updatedAmount)
         
@@ -119,15 +123,19 @@ const UserDashboard = () => {
 
         const txntype = 'deposit'
         const destaccount = ''
-        const existingAmountDeposit = parseInt(acctAmount)
-        const newAmountDeposit = parseInt(newAmount)
+        const existingAmountDeposit = parseFloat(acctAmount)
+        const newAmountDeposit = parseFloat(newAmount)
 
         const updateDeposit = (existingAmountDeposit + newAmountDeposit).toString()
         
         if(newAmount == "" || newAmount == null){
             alert("Please enter an amount to deposit")
         }else{
-
+            for(let d = 0; d < storageData.length; d++){
+                if(acctName == storageData[d].name){
+                    storageData[d].balance = updateDeposit
+                }
+            }
             localStorage.setItem('allAccounts', JSON.stringify(storageData))
             saveHistory(txntype,acctName,newAmount,destaccount,updateDeposit)
     
@@ -140,9 +148,9 @@ const UserDashboard = () => {
 
     const handleTransfer = (e) => {
         e.preventDefault()
-        const transferAmount = parseInt(newAmount)
-        const senderAccount = parseInt(acctAmount)
-        const recAccount = parseInt(receiverAmount)
+        const transferAmount = parseFloat(newAmount)
+        const senderAccount = parseFloat(acctAmount)
+        const recAccount = parseFloat(receiverAmount)
         const txntype = 'transfer'
 
         //Sender Account
