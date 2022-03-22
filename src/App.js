@@ -6,6 +6,8 @@ import UserDashboard from './components/accountActivity'
 import NavBar from './components/nav';
 import AllUsers from './components/alluserstable';
 import UserRegistration from './components/usersRegistration';
+import BudgetMain from './components/budgetmain';
+import ErrorPage from './components/errorpage';
 
 
 function App (){
@@ -20,6 +22,8 @@ function App (){
                     <Route path='adduser' element={<AddNewUser />} />
                     <Route path='users' element={<AllUsers />} />
                 </Route>
+                <Route path='budgetapp/:profname' element={<BudgetMain />} />
+                <Route path='*' element={<ErrorPage />} />
             </Routes>
         </Router>
     );

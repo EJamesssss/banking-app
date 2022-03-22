@@ -4,12 +4,15 @@ import { render } from "react-dom";
 import "../App.css";
 import logo from "../assets/images/logo.png";
 import piggyBank from "../assets/images/piggybank.gif";
+import BudgetMain from "./budgetmain";
 
 const LoginUser = () => {
+
+    const localData = JSON.parse(localStorage.getItem('allAccounts'))
     const [name, setName] = useState('')
     const [pass, setPass] = useState('')
 
-    const profilelink = "admin/" + name
+    const profilelink = "budgetapp/" + name
 
     const handleClick = (e) => {
         setName(e.target.value)
@@ -18,6 +21,13 @@ const LoginUser = () => {
     const handlePass = (e) => {
         setPass(e.target.value)
     }
+
+    const redirectTopage = () => {
+        <Link to={profilelink}></Link>
+    }
+
+    console.log(localData)
+
 
     return(
         <section id="view_initial">
@@ -42,7 +52,7 @@ const LoginUser = () => {
                             <form id="form_login" onSubmit={handleClick}>
                                 <div className="input-group">
                                     <label> Full Name:</label>
-                                    <input type='text' value={name} onChange={handleClick} />
+                                    <input type='text'  onChange={handleClick} />
                                 </div>
 
                                 <div className="input-group">
