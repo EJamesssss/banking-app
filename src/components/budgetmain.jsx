@@ -1,6 +1,9 @@
 import React,{useState} from "react";
 import { useParams } from "react-router-dom";
 import DisplayHistoryTable from "./historytable";
+import "../App.css";
+import user from "../assets/images/user.png";
+import logo from "../assets/images/logo.png";
 
 const BudgetMain = () => {
     const localData = JSON.parse(localStorage.getItem('allAccounts'))
@@ -30,32 +33,50 @@ const BudgetMain = () => {
 
 
     return(
-        <div>
-            <p>Budget app</p>
-            <div className="profile-area">
-                <p>{profname} Here</p>
-                <p>account number here: {accountNum}</p>
+        <section id="view_loggedin">
+            <nav>
+                <img src={logo} />
+                <ul className="nav-options">
+                    <li className="active-nav" data-view="register">Dashboard</li>
+                    <li data-view="login" >Login</li>
+                </ul>
+            </nav>
+            <div>
+                <article className="view_usercard">
+                    <div className="wrapper">
+                        <p>Budget app</p>
+                        <div className="user_informations">
+                            <img id="user_avatar" src={user} alt="user" />
+                            <div className="user_meta_container">
+                                <p>{profname} Here</p>
+                                <p>account number here: {accountNum}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="tablehistory">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Transaction Type</th>
+                                            <th>Source Account</th>
+                                            <th>Amount</th>
+                                            <th>Destination Account</th>
+                                            <th>Remaining Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {records.map((rec) =>(
+                                            <DisplayHistoryTable rec={rec}/>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
-            <div className="tablehistory">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Transaction Type</th>
-                            <th>Source Account</th>
-                            <th>Amount</th>
-                            <th>Destination Account</th>
-                            <th>Remaining Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {records.map((rec) =>(
-                            <DisplayHistoryTable rec={rec}/>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </section>
     )
 }
 

@@ -107,12 +107,12 @@ const UserDashboard = () => {
                 saveHistory(txntype,acctName,newAmount,destaccount,updatedAmount)
         
                 setAcctAmount(updatedAmount)
-                // const modalMessage = `Withdraw successful: ${newAmount} to account of ${acctName}`
-                alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
+                const modalMessage = `Withdraw successful: ${newAmount} to account of ${acctName}`
+                // alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
                 setNewAmount('')
-                // setTxnResponse(modalMessage)
-                // setModalOpen(true)
-                // {modalOpen && <Modal closeModal={setModalOpen} modalContent={txnResponse} />}
+                setTxnResponse(modalMessage)
+                setModalOpen(true)
+                
             }
         }
 
@@ -140,8 +140,11 @@ const UserDashboard = () => {
             saveHistory(txntype,acctName,newAmount,destaccount,updateDeposit)
     
             setAcctAmount(updateDeposit)
-            alert(`Deposit successful: ${newAmountDeposit} to account of ${acctName}`)
+            const modalDeposit = `Deposit successful: ${newAmountDeposit} to account of ${acctName}`
+            // alert(`Deposit successful: ${newAmountDeposit} to account of ${acctName}`)
             setNewAmount('')
+            setTxnResponse(modalDeposit)
+            setModalOpen(true)
         }
 
     }
@@ -184,10 +187,13 @@ const UserDashboard = () => {
     
             localStorage.setItem('allAccounts',JSON.stringify(storageData))
             saveHistory(txntype,acctName,newAmount,receiverAccount,deductSender)
-            alert(`The amount ${transferAmount} has been transfered from ${acctName} to ${receiverAccount}`)
+            const modalTransfer = `The amount ${transferAmount} has been transfered from ${acctName} to ${receiverAccount}`
+            // alert(`The amount ${transferAmount} has been transfered from ${acctName} to ${receiverAccount}`)
             setNewAmount("")
             setAcctAmount(deductSender)
             setReceiverAmount(addReceiver)
+            setTxnResponse(modalTransfer)
+            setModalOpen(true)
         }
 
 
@@ -300,6 +306,7 @@ const UserDashboard = () => {
                     </div>
                 </article>
             </div>
+            {modalOpen && <Modal closeModal={setModalOpen} modalContent={txnResponse} />}
         </section>
     )
 }
