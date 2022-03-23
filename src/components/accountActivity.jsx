@@ -4,7 +4,8 @@ import logo from "../assets/images/logo.png";
 import edit from "../assets/images/edit.png";
 import user from "../assets/images/user.png";
 import history from "../assets/images/history.jpg";
-import Modal from './modal';
+import Success from './modalSuccess';
+import Warning from './modalWarning';
 
 const UserDashboard = () => {
     const storageData = JSON.parse(localStorage.getItem('allAccounts'))
@@ -19,6 +20,8 @@ const UserDashboard = () => {
     const [acctNumber, setAcctNumber] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
     const [txnResponse, setTxnResponse] = useState('')
+    const [modalWarning, setModalWarning] = useState(false)
+    const [txnWarning, setTxnWarning] = useState('')
 
     function saveHistory(trxType,sourceaccount,trxAmount, destinationaccount, remainingbalance){
         const today = new Date()
@@ -93,10 +96,14 @@ const UserDashboard = () => {
         const updatedAmount = (existingAmount - newAmountInt).toString()
 
         if(newAmount == "" || newAmount == null){
-            alert("Please enter an amount to withdraw")
+            const warningWithdraw = "Please enter an amount to withdraw"
+            setTxnWarning(warningWithdraw)
+            setModalWarning(true)
         }else{
             if(newAmount > existingAmount){
-                alert('Insufficient funds!')
+                const warningInsufficient = "Insufficient funds!"
+                setTxnWarning(warningInsufficient)
+                setModalWarning(true)
             }else{
                 for(let w =0; w < storageData.length;w++){
                     if(acctName == storageData[w].name){
@@ -107,8 +114,7 @@ const UserDashboard = () => {
                 saveHistory(txntype,acctName,newAmount,destaccount,updatedAmount)
         
                 setAcctAmount(updatedAmount)
-                const modalMessage = `Withdraw successful: ${newAmount} to account of ${acctName}`
-                // alert(`Withdraw successful: ${newAmount} to account of ${acctName}`)
+                const modalMessage = `Withdraw successful: ${newAmount}Php to account of ${acctName}`
                 setNewAmount('')
                 setTxnResponse(modalMessage)
                 setModalOpen(true)
@@ -129,7 +135,9 @@ const UserDashboard = () => {
         const updateDeposit = (existingAmountDeposit + newAmountDeposit).toString()
         
         if(newAmount == "" || newAmount == null){
-            alert("Please enter an amount to deposit")
+            const warningDeposit = "Please enter an amount to withdraw"
+            setTxnWarning(warningDeposit)
+            setModalWarning(true)
         }else{
             for(let d = 0; d < storageData.length; d++){
                 if(acctName == storageData[d].name){
@@ -140,8 +148,7 @@ const UserDashboard = () => {
             saveHistory(txntype,acctName,newAmount,destaccount,updateDeposit)
     
             setAcctAmount(updateDeposit)
-            const modalDeposit = `Deposit successful: ${newAmountDeposit} to account of ${acctName}`
-            // alert(`Deposit successful: ${newAmountDeposit} to account of ${acctName}`)
+            const modalDeposit = `Deposit successful: ${newAmountDeposit}Php to account of ${acctName}`
             setNewAmount('')
             setTxnResponse(modalDeposit)
             setModalOpen(true)
@@ -161,14 +168,22 @@ const UserDashboard = () => {
         //Receiver Account
         const addReceiver = (recAccount + transferAmount).toString()
 
-        if(newAmount == "" || newAmount == null && receiverAccount == 'Select an Account' || receiverAccount == null ){
-            alert(`Please enter an amount to transfer and an account where to transfer`)
+        if(receiverAccount == 'Select an Account' || receiverAccount == null && newAmount == "" || newAmount == null ){
+            const warningTransfer = "Please enter an amount to transfer and an account where to transfer"
+            setTxnWarning(warningTransfer)
+            setModalWarning(true)
         }else if(newAmount == "" || newAmount == null){
-            alert(`Please enter an amount to transfer`)
+            const warningTransferAmount = "Please enter an amount to transfer"
+            setTxnWarning(warningTransferAmount)
+            setModalWarning(true)
         }else if(receiverAccount == 'Select an Account' || receiverAccount == null){
-            alert(`Please select a receiver's account`)
+            const warningReceiver = "Please select a receiver's account"
+            setTxnWarning(warningReceiver)
+            setModalWarning(true)
         }else if(acctName === receiverAccount){
-            alert(`You cannot transfer to the same account`)
+            const warningSameAccount = "You cannot transfer to the same account"
+            setTxnWarning(warningSameAccount)
+            setModalWarning(true)
         }else{
             for(let sender = 0; sender < storageData.length;sender++){
                 if(acctName == storageData[sender].name){
@@ -187,8 +202,7 @@ const UserDashboard = () => {
     
             localStorage.setItem('allAccounts',JSON.stringify(storageData))
             saveHistory(txntype,acctName,newAmount,receiverAccount,deductSender)
-            const modalTransfer = `The amount ${transferAmount} has been transfered from ${acctName} to ${receiverAccount}`
-            // alert(`The amount ${transferAmount} has been transfered from ${acctName} to ${receiverAccount}`)
+            const modalTransfer = `The amount ${transferAmount}Php has been transfered from ${acctName} to ${receiverAccount}`
             setNewAmount("")
             setAcctAmount(deductSender)
             setReceiverAmount(addReceiver)
@@ -222,7 +236,7 @@ const UserDashboard = () => {
                             </div>
                         </div>
 
-                        <div>
+                        {/* <div>
                             <div className="history" onClick={() => {
                                 setModalOpen(true);
                                 }}
@@ -230,7 +244,7 @@ const UserDashboard = () => {
                                 <img src={history} title="Edit Account" />  
                             </div>
                             {modalOpen && <Modal closeModal={setModalOpen} withdrawAmount={newAmount} />}
-                        </div>
+                        </div> */}
                     </div>
 
                 </article>
@@ -306,7 +320,8 @@ const UserDashboard = () => {
                     </div>
                 </article>
             </div>
-            {modalOpen && <Modal closeModal={setModalOpen} modalContent={txnResponse} />}
+            {modalOpen && <Success closeModal={setModalOpen} modalContent={txnResponse} />}
+            {modalWarning && <Warning closeWarningModal={setModalWarning} modalContentWarning={txnWarning} />}
         </section>
     )
 }
