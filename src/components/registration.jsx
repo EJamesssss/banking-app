@@ -1,13 +1,18 @@
 import React, {useState} from "react";
 import "../App.css";
-import logo from "../assets/images/logo.png";
 import piggyBank from "../assets/images/piggybank.gif";
+import Success from './modalSuccess';
+import Warning from './modalWarning';
 
 
 const AddNewUser = () => {
 
     const [name, setName] = useState('')
     const [bal, setBal] = useState('')
+    const [modalOpen, setModalOpen] = useState(false)
+    const [txnResponse, setTxnResponse] = useState('')
+    const [modalWarning, setModalWarning] = useState(false)
+    const [txnWarning, setTxnWarning] = useState('')
 
     const handleChangeName = (e) => {
         setName(e.target.value)
@@ -36,21 +41,29 @@ const AddNewUser = () => {
         var oldData = JSON.parse(localStorage.getItem('allAccounts'))
 
         if(name === '' || name === null || bal === '' || bal === null){
-            alert(`Please fill up all the needed data.`)
+            const warningCheck = "Please fill up all the needed data."
+            setTxnWarning(warningCheck)
+            setModalWarning(true)
         }else{
             if(oldData.length === 0){
                 oldData.push(userData)
                 localStorage.setItem('allAccounts', JSON.stringify(oldData))
-                alert(`You have successfully opened a bank account! \n Account Name: ${name}\n Account Number: ${acctNumber}\n Balance: ${bal}`)
+                const successRegister = `You have successfully opened a bank account! \n Account Name: ${name}\n Account Number: ${acctNumber}\n Balance: ${bal}`
+                setTxnResponse(successRegister)
+                setModalOpen(true)
                 setName('')
                 setBal('')
             }else{
                 if(name === oldData.name){
-                    alert(`Account name already in use`)
+                    const warningFillup = "Account name already in use"
+                    setTxnWarning(warningFillup)
+                    setModalWarning(true)
                 }else{
                     oldData.push(userData)
                     localStorage.setItem('allAccounts', JSON.stringify(oldData))
-                    alert(`You have successfully opened a bank account! \n Account Name: ${name}\n Account Number: ${acctNumber}\n Balance: ${bal}`)
+                    const successRegister2 = `You have successfully opened a bank account! \n Account Name: ${name}\n Account Number: ${acctNumber}\n Balance: ${bal}`
+                    setTxnResponse(successRegister2)
+                    setModalOpen(true)
                     setName('')
                     setBal('')
                 }
@@ -92,6 +105,8 @@ const AddNewUser = () => {
                     </div>
                 </article>
             </div>
+            {modalOpen && <Success closeModal={setModalOpen} modalContent={txnResponse} />}
+            {modalWarning && <Warning closeWarningModal={setModalWarning} modalContentWarning={txnWarning} />}
         </section>
     )
 }
