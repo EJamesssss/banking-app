@@ -4,7 +4,6 @@ import { render } from "react-dom";
 import "../App.css";
 import logo from "../assets/images/logo.png";
 import piggyBank from "../assets/images/piggybank.gif";
-import BudgetMain from "./budgetmain";
 
 const LoginUser = () => {
 
@@ -22,9 +21,6 @@ const LoginUser = () => {
         setPass(e.target.value)
     }
 
-    const redirectTopage = () => {
-        <Link to={profilelink}></Link>
-    }
 
     console.log(localData)
 
@@ -34,7 +30,7 @@ const LoginUser = () => {
             <nav>
                 <img src={logo} />
                 <ul className="nav-options">
-                    <li data-view="register">Register</li>
+                    <Link to="usersreg"><li data-view="register">Register</li></Link>
                     <Link to={profilelink} style={{textDecoration: 'none'}}><li className="active-nav" data-view="login" >Login</li></Link>
                     {/* <li className="active-nav" data-view="login" >Login</li> */}
                 </ul>
