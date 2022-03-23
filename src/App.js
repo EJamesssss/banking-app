@@ -8,6 +8,7 @@ import AllUsers from './components/alluserstable';
 import UserRegistration from './components/usersRegistration';
 import BudgetMain from './components/budgetmain';
 import ErrorPage from './components/errorpage';
+import AdminRegistration from './components/adminRegistration';
 
 
 function App (){
@@ -16,6 +17,7 @@ function App (){
             <Routes>
                 <Route path='/' element={<LoginUser />} />
                 <Route path='usersreg' element={<UserRegistration />} />
+                <Route path='adminreg' element={<AdminRegistration />} />
                 <Route path='admin' element={<NavBar />} >
                     <Route index element={<UserDashboard />} />
                     <Route path=':profname' element={<UserDashboard />} />
