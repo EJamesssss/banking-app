@@ -73,6 +73,9 @@ const UserRegistration = () => {
             localAccounts.push(consumerAccount)
             localStorage.setItem('customeraccounts',JSON.stringify(localAccounts))
             alert(`Registration successful!`)
+            setAccNum('')
+            setPword('')
+            setUname('')
         }
     }
 
@@ -83,7 +86,7 @@ const UserRegistration = () => {
                 <ul className="nav-options">
                     
                     <Link to="usersreg"><li className="active-nav" data-view="register">Register</li></Link>
-                    <li data-view="login" >Login</li>
+                    <Link to="/"><li data-view="login" >Login</li></Link>
                     {/* <li className="active-nav" data-view="login" >Login</li> */}
                 </ul>
             </nav>
