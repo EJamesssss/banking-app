@@ -17,9 +17,9 @@ function App (){
             <Routes>
                 <Route path='/' element={<LoginUser />} />
                 <Route path='usersreg' element={<UserRegistration />} />
-                <Route path='adminreg' element={<AdminRegistration />} />
                 <Route path='admin' element={<NavBar />} >
                     <Route index element={<UserDashboard />} />
+                    <Route path='adminreg' element={<AdminRegistration />} />
                     <Route path=':profname' element={<UserDashboard />} />
                     <Route path='adduser' element={<AddNewUser />} />
                     <Route path='users' element={<AllUsers />} />
