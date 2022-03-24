@@ -237,18 +237,7 @@ const UserDashboard = () => {
                                 </p>
                             </div>
                         </div>
-
-                        {/* <div>
-                            <div className="history" onClick={() => {
-                                setModalOpen(true);
-                                }}
-                                >
-                                <img src={history} title="Edit Account" />  
-                            </div>
-                            {modalOpen && <Modal closeModal={setModalOpen} withdrawAmount={newAmount} />}
-                        </div> */}
                     </div>
-
                 </article>
                 <article className="view_useractions">
                     <div className="wrapper view_useractions_parent">

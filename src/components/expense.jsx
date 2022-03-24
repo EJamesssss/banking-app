@@ -109,8 +109,9 @@ const Expense = () => {
                     PiggyBank<span>.</span>
                 </h1>
                 <ul className="nav-options">
-                    <Link to={dashboardlink}><li className="active-nav" data-view="register">Dashboard</li></Link>
-                    <li data-view="login" >Logout</li>
+                    <Link to={dashboardlink}><li data-view="register">Dashboard</li></Link>
+                    <li className="active-nav" data-view="expense">Expense</li>
+                    <Link to="/"><li data-view="login" >Logout</li></Link>
                 </ul>
             </nav>
             <div className="view_expense">
@@ -164,7 +165,7 @@ const Expense = () => {
                                 </div>
                                 <div className="input-group">
                                     <label htmlFor='cost'>Cost</label>
-                                    <input type="text" name="cost" value={cost} onChange={(e) => {handleInputChange(setCost, e.target.value)}}></input>
+                                    <input type="number" min="0" name="cost" value={cost} onChange={(e) => {handleInputChange(setCost, e.target.value)}}></input>
                                 </div>
                                 <div className="input-group">
                                     <button>

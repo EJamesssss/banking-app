@@ -93,7 +93,7 @@ const LoginUser = () => {
             <div id="dynamic_login" data-view="login">
               <form id="form_login" onSubmit={handleLogIn}>
                 <div className="input-group">
-                  <label> Full Name:</label>
+                  <label> Username:</label>
                   <input type="text" onChange={handleClick} />
                 </div>
 

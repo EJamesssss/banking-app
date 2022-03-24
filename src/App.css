@@ -341,6 +341,11 @@ section#view_loggedin nav div.nav-brand h1 {
   font-size: 40px;
   font-weight: 700; }
 
+section#view_loggedin > nav > h1 {
+  margin-left: 12px;
+  font-size: 40px;
+  font-weight: 700; }
+
 section#view_loggedin nav div.nav-brand h1 span {
   color: #00BDFE; }
 
