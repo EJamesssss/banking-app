@@ -67,7 +67,18 @@ const Expense = () => {
     }
 
     const addExpense = () => {
-        const newExp = { id: expense.length, accountnumber: profname, accountowner: accountname , expensename, cost }
+        let lastID = 0
+        if(expenselocal.length == 0){
+            lastID = 0
+        }else{
+            let newID = ''
+            for(let lid = 0; lid < expenselocal.length; lid++){
+                newID = expenselocal[lid].id
+            }
+
+            lastID = parseInt(newID) + 1
+        }
+        const newExp = { id: lastID, accountnumber: profname, accountowner: accountname , expensename, cost }
         expense.push(newExp)
         console.log(`Account Number: ${profname} \n Account Owner: ${accountname}`)
 
