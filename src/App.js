@@ -9,6 +9,7 @@ import UserRegistration from './components/usersRegistration';
 import BudgetMain from './components/budgetmain';
 import ErrorPage from './components/errorpage';
 import AdminRegistration from './components/adminRegistration';
+import Expense from './components/expense';
 
 
 function App (){
@@ -28,6 +29,7 @@ function App (){
                 <Route path='budgetapp/:profname' element={<BudgetMain />} >
                 </Route>
                 <Route path='*' element={<ErrorPage />} />
+                <Route path='expense' element={<Expense />} />
             </Routes>
         </Router>
     );
