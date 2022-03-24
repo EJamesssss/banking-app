@@ -81,7 +81,7 @@ const Expense = () => {
             <div className="view_expense">
                 <article className="view_usercard">
                     <div className="wrapper">
-                        <div className="user_informations">
+                        <div className="user_informations tableScroll2">
                             <table>
                                 <thead>
                                     <tr>

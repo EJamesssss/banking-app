@@ -82,16 +82,7 @@ const AllUsers = () => {
             <div>
                 <article className="view_usercard">
                     <div className="wrapper">
-                        <div className="user_informations">
-                            {/* <div>
-                                <div className="history" onClick={() => {
-                                    setModalOpen(true);
-                                    }}
-                                    >
-                                    <img src={history} title="Edit Account" />  
-                                </div>
-                                {modalOpen && <Modal closeModal={setModalOpen}/>}
-                            </div> */}
+                        <div className="user_informations tableScroll2" >
                             <table>
                                 <thead>
                                     <tr>

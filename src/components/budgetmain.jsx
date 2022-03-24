@@ -38,6 +38,7 @@ const BudgetMain = () => {
                 <img src={logo} />
                 <ul className="nav-options">
                     <li className="active-nav" data-view="register">Dashboard</li>
+                    <Link to="expense"><li data-view="expense">Expense</li></Link>
                     <Link to="/"><li data-view="login" >Logout</li></Link>
                 </ul>
             </nav>
@@ -53,7 +54,7 @@ const BudgetMain = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="tablehistory">
+                            <div className="tableScroll">
                                 <table>
                                     <thead>
                                         <tr>
