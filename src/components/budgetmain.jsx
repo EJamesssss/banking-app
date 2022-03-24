@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DisplayHistoryTable from "./historytable";
 import "../App.css";
 import user from "../assets/images/user.png";
@@ -8,27 +8,27 @@ import logo from "../assets/images/logo.png";
 const BudgetMain = () => {
     const localData = JSON.parse(localStorage.getItem('allAccounts'))
     const localHistory = JSON.parse(localStorage.getItem('trxhistory'))
-    let accountNum = ''
     let records = []
 
     const { profname } = useParams()
-    // const [accountnum, setAccountNum] = useState('')
+    let currentUser = ''
 
     for(let l = 0;l<localData.length; l++){
-        if(localData[l].name == profname){
-            accountNum = localData[l].accountnumber
+        if(localData[l].accountnumber == profname){
+            currentUser = localData[l].name
         }
     }
 
     const gatherhistory =() => {
         for(let h = 0; h < localHistory.length; h++){
-            if(localHistory[h].sourceaccount == profname){
+            if(localHistory[h].sourceaccount == currentUser){
                 records.push(localHistory[h])
             }
         }
     }
 
     gatherhistory()
+    console.log(profname)
 
 
 
@@ -38,7 +38,7 @@ const BudgetMain = () => {
                 <img src={logo} />
                 <ul className="nav-options">
                     <li className="active-nav" data-view="register">Dashboard</li>
-                    <li data-view="login" >Login</li>
+                    <Link to="/"><li data-view="login" >Logout</li></Link>
                 </ul>
             </nav>
             <div>
@@ -48,8 +48,8 @@ const BudgetMain = () => {
                         <div className="user_informations">
                             <img id="user_avatar" src={user} alt="user" />
                             <div className="user_meta_container">
-                                <p>{profname} Here</p>
-                                <p>account number here: {accountNum}</p>
+                                <p>{currentUser}</p>
+                                <p>account number: {profname}</p>
                             </div>
                         </div>
                         <div>

@@ -12,6 +12,7 @@ import AdminRegistration from './components/adminRegistration';
 
 
 function App (){
+    
     return(
         <Router>
             <Routes>
@@ -24,7 +25,8 @@ function App (){
                     <Route path='adduser' element={<AddNewUser />} />
                     <Route path='users' element={<AllUsers />} />
                 </Route>
-                <Route path='budgetapp/:profname' element={<BudgetMain />} />
+                <Route path='budgetapp/:profname' element={<BudgetMain />} >
+                </Route>
                 <Route path='*' element={<ErrorPage />} />
             </Routes>
         </Router>
