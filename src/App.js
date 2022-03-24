@@ -26,10 +26,10 @@ function App (){
                     {/* <Route path='adduser' element={<AddNewUser />} /> */}
                     <Route path='users' element={<AllUsers />} />
                 </Route>
-                <Route path='budgetapp/:profname' element={<BudgetMain />} >
-                </Route>
+                <Route path='budgetapp/:profname' element={<BudgetMain />} />
+                <Route path='expense/:profname' element={<Expense />} />
                 <Route path='*' element={<ErrorPage />} />
-                <Route path='expense' element={<Expense />} />
+                
             </Routes>
         </Router>
     );

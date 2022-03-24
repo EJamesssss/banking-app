@@ -1,12 +1,24 @@
 import React, {useState} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import "../App.css";
 import logo from "../assets/images/logo.png";
 import update from "../assets/images/update.png";
 import remove from "../assets/images/remove.png";
 
 const Expense = () => {
+
+    const {profname} = useParams()
+
+    if(localStorage.getItem('expenserecord') == null){
+        localStorage.setItem('expenserecord',JSON.stringify([]))
+    }
+
+    const expenselocal = JSON.parse(localStorage.getItem('expenserecord'))
+    const acctdetails = JSON.parse(localStorage.getItem('allAccounts'))
+
+    let accountname = ''
     
-    const [expense, setExpense] = useState([])
+    const [expense, setExpense] = useState(expenselocal)
 
     const [id, setId] = useState(0)
     const [expensename, setExpenseName] = useState('')
@@ -14,6 +26,12 @@ const Expense = () => {
 
     const [isEditing, setIsEditing] = useState(false)
     const [isEditingId, setIsEditingId] = useState(0)
+
+    for(let ad = 0; ad < acctdetails.length; ad++){
+        if(profname == acctdetails[ad].accountnumber)
+        accountname = acctdetails[ad].name
+        {break}
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -34,6 +52,7 @@ const Expense = () => {
     const handleDelete = (id) => {
         const newExpenses = expense.filter((exp) => exp.id != id)
         setExpense(newExpenses)
+        localStorage.setItem('expenserecord', JSON.stringify(newExpenses))
     }
 
     const editExpense = (id) => {
@@ -43,13 +62,16 @@ const Expense = () => {
         const updatedExp = expense.map((exp) =>
         exp.id === id ? { ...selectedExp } : exp
         )
-        setExpense(updatedExp)
+        localStorage.setItem('expenserecord', JSON.stringify(updatedExp))
         resetInput()
     }
 
     const addExpense = () => {
-        const newExp = { id: expense.length, expensename, cost }
-        setExpense([...expense, newExp])
+        const newExp = { id: expense.length, accountnumber: profname, accountowner: accountname , expensename, cost }
+        expense.push(newExp)
+        console.log(`Account Number: ${profname} \n Account Owner: ${accountname}`)
+
+        localStorage.setItem('expenserecord', JSON.stringify(expense))
         resetInput()
     }
 
@@ -66,6 +88,8 @@ const Expense = () => {
         setCost(selectedExp.cost)
     }
 
+    const dashboardlink = '/budgetapp/'+ profname
+
     return (
         <section id="view_loggedin">
             <nav>
@@ -74,7 +98,7 @@ const Expense = () => {
                     PiggyBank<span>.</span>
                 </h1>
                 <ul className="nav-options">
-                    <li className="active-nav" data-view="register">Expenses</li>
+                    <Link to={dashboardlink}><li className="active-nav" data-view="register">Dashboard</li></Link>
                     <li data-view="login" >Logout</li>
                 </ul>
             </nav>
@@ -94,12 +118,12 @@ const Expense = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {expense.map(({id, expensename, cost}) => {
+                                    {expense.map(({id, accountnumber, accountowner , expensename, cost}) => {
                                         return (
                                             <tr key={id + expensename}>
                                                 <td>{id}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{accountnumber}</td>
+                                                <td>{accountowner}</td>
                                                 <td>{expensename}</td>
                                                 <td>{cost}</td>
                                                 <td>
