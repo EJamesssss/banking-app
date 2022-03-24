@@ -78,7 +78,7 @@ const Expense = () => {
                     <li data-view="login" >Logout</li>
                 </ul>
             </nav>
-            <div>
+            <div className="view_expense">
                 <article className="view_usercard">
                     <div className="wrapper">
                         <div className="user_informations">

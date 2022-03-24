@@ -22,7 +22,7 @@ function App (){
                     <Route index element={<UserDashboard />} />
                     <Route path='adminreg' element={<AdminRegistration />} />
                     <Route path=':profname' element={<UserDashboard />} />
-                    <Route path='adduser' element={<AddNewUser />} />
+                    {/* <Route path='adduser' element={<AddNewUser />} /> */}
                     <Route path='users' element={<AllUsers />} />
                 </Route>
                 <Route path='budgetapp/:profname' element={<BudgetMain />} />

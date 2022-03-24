@@ -98,6 +98,7 @@ const AllUsers = () => {
                                         <th>Name</th>
                                         <th>Account Number</th>
                                         <th>Balance</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
