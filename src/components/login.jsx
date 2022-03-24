@@ -22,8 +22,9 @@ const LoginUser = () => {
     }
 
 
-    console.log(localData)
-
+    const handleLogIn = () => {
+        <Link to={profilelink}></Link>
+    }
 
     return(
         <section id="view_initial">
@@ -45,7 +46,7 @@ const LoginUser = () => {
                 <article className="view_initial_nav">
                     <div className="view_initial_nav_dynamic">
                         <div id="dynamic_login" data-view="login">
-                            <form id="form_login" onSubmit={handleClick}>
+                            <form id="form_login">
                                 <div className="input-group">
                                     <label> Full Name:</label>
                                     <input type='text'  onChange={handleClick} />
@@ -57,11 +58,13 @@ const LoginUser = () => {
                                 </div>
                                 
                                 <div className="input-group">
-                                    <button type="submit">
-                                        <i className="ion-android-checkmark-circle"></i>
-                                        &nbsp;
-                                        Login
-                                    </button>
+                                    <Link to={profilelink}>
+                                        <button type="submit">
+                                            <i className="ion-android-checkmark-circle"></i>
+                                            &nbsp;
+                                            Login
+                                        </button>
+                                    </Link>
                                 </div>
                             </form>
                         </div>

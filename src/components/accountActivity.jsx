@@ -16,6 +16,7 @@ const UserDashboard = () => {
     const [acctAmount, setAcctAmount] = useState('')
     const [newAmount, setNewAmount] = useState('')
     const [receiverAccount, setReceiverAccount] = useState('Select an Account')
+    const [receiverAccountNumber, setReceiverAccountNumber] = useState('')
     const [receiverAmount, setReceiverAmount] = useState('')
     const [acctNumber, setAcctNumber] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
@@ -78,6 +79,7 @@ const UserDashboard = () => {
         for(let r = 0;r < storageData.length;r++){{
             if(receiverAccount == storageData[r].name){
                 setReceiverAmount(storageData[r].balance)
+                setReceiverAccountNumber(storageData[r].accountnumber)
             }
         }}
     }
@@ -180,7 +182,7 @@ const UserDashboard = () => {
             const warningReceiver = "Please select a receiver's account"
             setTxnWarning(warningReceiver)
             setModalWarning(true)
-        }else if(acctName === receiverAccount){
+        }else if(acctNumber === receiverAccountNumber){
             const warningSameAccount = "You cannot transfer to the same account"
             setTxnWarning(warningSameAccount)
             setModalWarning(true)
@@ -314,6 +316,7 @@ const UserDashboard = () => {
                                     </div>
                                     <br />
                                     <p>Php: {receiverAmount}</p>
+                                    <p>Account Number: {receiverAccountNumber}</p>
                                 </div>
                             </form>
                         </div>
