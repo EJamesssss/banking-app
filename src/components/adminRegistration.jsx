@@ -59,18 +59,6 @@ const AdminRegistration = () => {
 
     return(
         <section id="view_initial">
-            <nav>
-                <img src={logo} />
-                <h1>
-                    PiggyBank<span>.</span>
-                </h1>
-                <ul className="nav-options">
-                    
-                    <Link to="usersreg"><li className="active-nav" data-view="register">Register</li></Link>
-                    <Link to="/"><li data-view="login" >Login</li></Link>
-                    {/* <li className="active-nav" data-view="login" >Login</li> */}
-                </ul>
-            </nav>
             <div>
                 <article className="view_initial_nav">
                     <div className="view_initial_nav_dynamic">

@@ -20,6 +20,7 @@ const NavBar = () => {
                     <Link to=""><li> Dashboard </li></Link>
                     {/* <Link to="adduser"><li> Add User </li></Link> */}
                     <Link to="users"><li> Show Users </li></Link> 
+                    <Link to="adminreg"><li>Register</li></Link>
                     <Link to="/"><li>Logout</li></Link>
                 </ul> 
             </nav>
