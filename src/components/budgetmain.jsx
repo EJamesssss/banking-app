@@ -13,7 +13,6 @@ const BudgetMain = () => {
     let records = []
 
     const [acctName, setAcctName] = useState(' --- ')
-    const [acctNameHolder, setAcctNameHolder] = useState('')
     const [acctAmount, setAcctAmount] = useState('')
     const [newAmount, setNewAmount] = useState('')
     const [receiverAccount, setReceiverAccount] = useState('Select an Account')
@@ -44,28 +43,6 @@ const BudgetMain = () => {
 
     gatherhistory()
     const expenseapp = '/expense/'+ profname
-
-    const handleSelectedAccount = (e) => {
-        setAcctName(e.target.value)
-    }
-
-    const handleReceiverAccount = (e) => {
-        setReceiverAccount(e.target.value)
-    }
-
-    const handleOpenAccountDetails = (e) => {
-        e.preventDefault()
-
-        for(let actDet = 0;actDet < localData.length;actDet++){
-            if(acctName == localData[actDet].name){
-                setAcctAmount(localData[actDet].balance)
-                setAcctNumber(localData[actDet].accountnumber)
-            }
-        }
-
-        setAcctNameHolder(acctName)
-
-    }
 
     const handleOpenReceiverAccount = (e) => {
         e.preventDefault()
@@ -294,29 +271,6 @@ const BudgetMain = () => {
                 <article className="view_useractions">
                     <div className="wrapper view_useractions_parent">
                         <div id="dynamic_deposit" data-action="deposit">
-                            <form id="form_deposit" onSubmit={handleOpenAccountDetails}>                                
-                                <div className="input-group"> 
-                                    <div className="input-group spacing">
-                                        <label> User Account </label>
-                                        <select onChange={handleSelectedAccount}>
-                                            <option value=' '> -- Select An Account --</option>
-                                                { localData.map((acctName) =>  
-                                                    <option key={acctName.name} value={acctName.value}>{acctName.name}</option>)}
-                                         </select>
-                                    </div>
-                                    <div className="input-group">
-                                        <button type="submit">
-                                            <i className="ion-android-checkmark-circle"></i>
-                                            &nbsp;
-                                            Show Account
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div className="wrapper view_useractions_parent">
-                        <div id="dynamic_deposit" data-action="deposit">
                             <form id="form_deposit" onSubmit={handleOpenReceiverAccount} >                                
                                 <div className="input-group spacing">
                                     <label> Amount </label>
@@ -351,8 +305,6 @@ const BudgetMain = () => {
                                         </button>
                                     </div>
                                     <br />
-                                    <p>Php: </p>
-                                    <p>Account Number: </p>
                                 </div>
                             </form>
                         </div>
