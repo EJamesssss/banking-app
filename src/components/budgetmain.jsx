@@ -10,93 +10,19 @@ import Warning from './modalWarning';
 const BudgetMain = () => {
     const localData = JSON.parse(localStorage.getItem('allAccounts'))
     const localHistory = JSON.parse(localStorage.getItem('trxhistory'))
+    const { profname } = useParams()
     let records = []
 
-    const [acctName, setAcctName] = useState(' --- ')
-    const [acctAmount, setAcctAmount] = useState('')
     const [newAmount, setNewAmount] = useState('')
-    const [receiverAccount, setReceiverAccount] = useState('Select an Account')
     const [receiverAccountNumber, setReceiverAccountNumber] = useState('')
-    const [acctNumber, setAcctNumber] = useState('')
-    const [receiverAmount, setReceiverAmount] = useState('')
     const [txnWarning, setTxnWarning] = useState('')
     const [modalWarning, setModalWarning] = useState(false)
     const [txnResponse, setTxnResponse] = useState('')
     const [modalOpen, setModalOpen] = useState(false)
 
-    const { profname } = useParams()
+    
     let currentUser = ''
-
-    for(let l = 0;l<localData.length; l++){
-        if(localData[l].accountnumber == profname){
-            currentUser = localData[l].name
-        }
-    }
-
-    const gatherhistory =() => {
-        for(let h = 0; h < localHistory.length; h++){
-            if(localHistory[h].sourceaccount == currentUser){
-                records.push(localHistory[h])
-            }
-        }
-    }
-
-    gatherhistory()
-    const expenseapp = '/expense/'+ profname
-
-    const handleOpenReceiverAccount = (e) => {
-        e.preventDefault()
-
-        for(let r = 0;r < localData.length;r++){{
-            if(receiverAccount == localData[r].name){
-                setReceiverAmount(localData[r].balance)
-                setReceiverAccountNumber(localData[r].accountnumber)
-            }
-        }}
-    }
-
-    const handleNewAmount = (e) => {
-        setNewAmount(e.target.value)
-    }
-
-    const handleWithdraw = (e) => {
-        e.preventDefault()
-        const txntype = 'withdraw'
-        const destaccount = ''
-        const existingAmount = parseFloat(acctAmount)
-        const newAmountInt = parseFloat(newAmount)
-
-        const updatedAmount = (existingAmount - newAmountInt).toString()
-
-        if(newAmount == "" || newAmount == null){
-            const warningWithdraw = "Please enter an amount to withdraw"
-            setTxnWarning(warningWithdraw)
-            setModalWarning(true)
-        }else{
-            if(newAmount > existingAmount){
-                const warningInsufficient = "Insufficient funds!"
-                setTxnWarning(warningInsufficient)
-                setModalWarning(true)
-            }else{
-                for(let w =0; w < localData.length;w++){
-                    if(acctName == localData[w].name){
-                        localData[w].balance = updatedAmount
-                    }
-                }
-                localStorage.setItem('allAccounts', JSON.stringify(localData))
-                saveHistory(txntype,acctName,newAmount,destaccount,updatedAmount)
-        
-                setAcctAmount(updatedAmount)
-                const modalMessage = `Withdraw successful: ${newAmount}Php to account of ${acctName}`
-                setNewAmount('')
-                setTxnResponse(modalMessage)
-                setModalOpen(true)
-                
-            }
-        }
-
-    }
-
+    let acctAmount = ''
     function saveHistory(trxType,sourceaccount,trxAmount, destinationaccount, remainingbalance){
         const today = new Date()
         const dd = String(today.getDate()).padStart(2,'0')
@@ -117,101 +43,189 @@ const BudgetMain = () => {
             localStorage.setItem('trxhistory',JSON.stringify([]))
         }
 
-        let localHistory = JSON.parse(localStorage.getItem('trxhistory'))
+        // localHistory = JSON.parse(localStorage.getItem('trxhistory'))
 
         localHistory.push(trxHistory)
         localStorage.setItem('trxhistory',JSON.stringify(localHistory))
     }
 
-    const handleDeposit = (e) => {
+    for(let l = 0;l<localData.length; l++){
+        if(localData[l].accountnumber == profname){
+            currentUser = localData[l].name
+            acctAmount = localData[l].balance
+        }
+    }
+
+    const gatherhistory =() => {
+        for(let h = 0; h < localHistory.length; h++){
+            if(localHistory[h].sourceaccount == currentUser){
+                records.push(localHistory[h])
+            }
+        }
+    }
+
+    gatherhistory()
+    const expenseapp = '/expense/'+ profname
+
+    const handleNewAmount = (e) => {
+        setNewAmount(e.target.value)
+    }
+
+    const handleReceiver = (e) => {
+        setReceiverAccountNumber(e.target.value)
+    }
+
+    const handleWithdraw = (e) => {
         e.preventDefault()
-
-        const txntype = 'deposit'
+        const txntype = 'withdraw'
         const destaccount = ''
-        const existingAmountDeposit = parseFloat(acctAmount)
-        const newAmountDeposit = parseFloat(newAmount)
+        const currentBalance = parseFloat(acctAmount)
+        const withdrawAmount = parseFloat(newAmount)
 
-        const updateDeposit = (existingAmountDeposit + newAmountDeposit).toString()
-        
+        const withdrawUpdate = (currentBalance - withdrawAmount).toString()
+
+
         if(newAmount == "" || newAmount == null){
-            const warningDeposit = "Please enter an amount to withdraw"
-            setTxnWarning(warningDeposit)
+            const warningWithdraw = "Please enter an amount to withdraw"
+            setTxnWarning(warningWithdraw)
             setModalWarning(true)
         }else{
-            for(let d = 0; d < localData.length; d++){
-                if(acctName == localData[d].name){
-                    localData[d].balance = updateDeposit
+            if(withdrawAmount > currentBalance){
+                const warningInsufficient = "Insufficient funds!"
+                setTxnWarning(warningInsufficient)
+                setModalWarning(true)
+            }else{
+                for(let w = 0; w < localData.length; w++){
+                    if(profname == localData[w].accountnumber){
+                        localData[w].balance = withdrawUpdate
+                        {break}
+                    }
+                }
+                localStorage.setItem('allAccounts', JSON.stringify(localData))
+                saveHistory(txntype,currentUser,newAmount,destaccount,withdrawUpdate)
+        
+                // setAcctAmount(updatedAmount)
+                const modalMessage = `Withdraw successful: ${newAmount}Php to account of ${currentUser}`
+                setNewAmount('')
+                setTxnResponse(modalMessage)
+                setModalOpen(true)
+                
+            }
+        }
+        acctAmount = withdrawUpdate
+    }
+
+    const handleDeposit = (e) => {
+        e.preventDefault()
+        const txntype = 'deposit'
+        const destaccount = ''
+        const currentBalance = parseFloat(acctAmount)
+        const withdrawAmount = parseFloat(newAmount)
+
+        const depositUpdate = (currentBalance + withdrawAmount).toString()
+
+        if(newAmount == "" || newAmount == null){
+            const warningWithdraw = "Please enter an amount to withdraw"
+            setTxnWarning(warningWithdraw)
+            setModalWarning(true)
+        }else{
+            for(let d =0; d < localData.length; d++){
+                if(profname == localData[d].accountnumber){
+                    localData[d].balance = depositUpdate
+                    {break}
                 }
             }
             localStorage.setItem('allAccounts', JSON.stringify(localData))
-            saveHistory(txntype,acctName,newAmount,destaccount,updateDeposit)
-    
-            setAcctAmount(updateDeposit)
-            const modalDeposit = `Deposit successful: ${newAmountDeposit}Php to account of ${acctName}`
+            saveHistory(txntype,currentUser,newAmount,destaccount,depositUpdate)
+            const modalMessage = `Deposit successful: ${newAmount}Php to account of ${currentUser}`
             setNewAmount('')
-            setTxnResponse(modalDeposit)
+            setTxnResponse(modalMessage)
             setModalOpen(true)
         }
+
+        acctAmount = depositUpdate
 
     }
 
     const handleTransfer = (e) => {
         e.preventDefault()
-        const transferAmount = parseFloat(newAmount)
-        const senderAccount = parseFloat(acctAmount)
-        const recAccount = parseFloat(receiverAmount)
-        const txntype = 'transfer'
 
-        //Sender Account
-        const deductSender = (senderAccount - transferAmount).toString()
-        //Receiver Account
-        const addReceiver = (recAccount + transferAmount).toString()
+        // const txntype = 'transfer'
+        // let destaccount = ''
+        // const currentBalance = parseFloat(acctAmount)
+        // const transferAmount = parseFloat(newAmount)
+        // let receiverAccountBalance = 0
+        // let sameBank = false
+        // let recAccountNumber = ''
 
-        if(receiverAccount == 'Select an Account' || receiverAccount == null && newAmount == "" || newAmount == null ){
-            const warningTransfer = "Please enter an amount to transfer and an account where to transfer"
-            setTxnWarning(warningTransfer)
-            setModalWarning(true)
-        }else if(newAmount == "" || newAmount == null){
-            const warningTransferAmount = "Please enter an amount to transfer"
-            setTxnWarning(warningTransferAmount)
-            setModalWarning(true)
-        }else if(receiverAccount == 'Select an Account' || receiverAccount == null){
-            const warningReceiver = "Please select a receiver's account"
-            setTxnWarning(warningReceiver)
-            setModalWarning(true)
-        }else if(acctNumber === receiverAccountNumber){
-            const warningSameAccount = "You cannot transfer to the same account"
-            setTxnWarning(warningSameAccount)
-            setModalWarning(true)
-        }else{
-            for(let sender = 0; sender < localData.length;sender++){
-                if(acctName == localData[sender].name){
-                    localData[sender].balance = deductSender
-                }
-            }
+        // const transferUpdateSender = (currentBalance - transferAmount).toString() 
+        // const transferUpdateReceiver = (receiverAccountBalance + transferAmount).toString()
+
+        // if(newAmount == "" || newAmount == null || receiverAccountNumber == '' || receiverAccountNumber == null){
+        //     const warningWithdraw = "Please make sure to enter both amount to transfer and account number where to transfer"
+        //     setTxnWarning(warningWithdraw)
+        //     setModalWarning(true)
+        // }else{
+        //     for(let ca = 0; ca < localData.length; ca++){
+        //         if(receiverAccountNumber == localData[ca].accountnumber){
+        //             sameBank = true
+        //             destaccount = localData[ca].name
+        //             receiverAccountBalance = localData[ca].balance
+        //             recAccountNumber = localData[ca].accountnumber
+        //             console.log(`Destination: ${destaccount} \n Receiver Balance: ${receiverAccountBalance} \n Same Bank: ${sameBank}`)
+        //         }else{
+        //             destaccount = receiverAccountNumber
+        //             sameBank = false
+        //         }
+        //     }
+        // }
+
+        // if(sameBank == true){
+        //     //sender update
+
+        //     for(let s = 0; s < localData.length; s++){
+        //         if(profname == localData[s].accountnumber){
+        //             localData[s].balance = transferUpdateSender
+        //             {break}
+        //         }
+        //     }
+
+        //     //Receiver
+
+        //     for(let r = 0; r < localData.length; r++){
+        //         if(receiverAccountNumber == localData[r].accountnumber){
+        //             localData[r].balance = transferUpdateReceiver
+        //             {break}
+        //         }
+        //     }
+        //     console.log(`Sender Update: ${transferUpdateSender} \n Receiver Update: ${transferUpdateReceiver}`)
             
-
-    
-    
-            for(let rec = 0;rec < localData.length;rec++){
-                if(receiverAccount == localData[rec].name){
-                    localData[rec].balance = addReceiver
-                }
-            }
-    
-            localStorage.setItem('allAccounts',JSON.stringify(localData))
-            saveHistory(txntype,acctName,newAmount,receiverAccount,deductSender)
-            const modalTransfer = `The amount ${transferAmount}Php has been transfered from ${acctName} to ${receiverAccount}`
-            setNewAmount("")
-            setAcctAmount(deductSender)
-            setReceiverAmount(addReceiver)
-            setTxnResponse(modalTransfer)
-            setModalOpen(true)
-        }
+        //     // localStorage.setItem('allAccounts', JSON.stringify(localData))
+        //     // saveHistory(txntype,currentUser,newAmount,destaccount,transferUpdateSender)
+        //     const modalMessage = `Transfer successful: Php ${newAmount} to account of ${destaccount}`
+        //     setNewAmount('')
+        //     setTxnResponse(modalMessage)
+        //     setModalOpen(true)
+        // }else{
+        //     for(let s = 0; s < localData.length; s++){
+        //         if(profname == localData[s].accountnumber){
+        //             localData[s].balance = transferUpdateSender
+        //             {break}
+        //         }
+        //     }
+        //     // localStorage.setItem('allAccounts', JSON.stringify(localData))
+        //     // saveHistory(txntype,currentUser,newAmount,destaccount,transferUpdateSender)
+        //     const modalMessage = `Transfer successful: Php ${newAmount} to account of ${destaccount}`
+        //     setNewAmount('')
+        //     setTxnResponse(modalMessage)
+        //     setModalOpen(true)
+        // }
 
 
 
     }
+
+
 
     return(
         <section id="view_loggedin">
@@ -271,10 +285,10 @@ const BudgetMain = () => {
                 <article className="view_useractions">
                     <div className="wrapper view_useractions_parent">
                         <div id="dynamic_deposit" data-action="deposit">
-                            <form id="form_deposit" onSubmit={handleOpenReceiverAccount} >                                
+                            <form id="form_deposit" >                                
                                 <div className="input-group spacing">
                                     <label> Amount </label>
-                                    <input type="number" name="newamount"  value={newAmount} onChange={handleNewAmount}/>
+                                    <input type="number" name="newamount"  value={newAmount} onChange={handleNewAmount} min="0"/>
 
                                     <button onClick={handleWithdraw}>
                                         <i className="ion-android-checkmark-circle"></i>
@@ -286,24 +300,29 @@ const BudgetMain = () => {
                                         &nbsp;
                                         Deposit
                                     </button>
+                                    {/* <button onClick={handleTransfer}>
+                                        <i className="ion-android-checkmark-circle"></i>
+                                        &nbsp;
+                                        Transfer
+                                    </button> */}
+                                </div>
+                                <div className="input-group">                                                  
+                                    <div className="input-group spacing">
+                                        <label> Receiver Account </label>
+                                        <input type="number" name="newamount" min="0" onChange={handleReceiver} />
+                                    </div>
                                     <button onClick={handleTransfer}>
                                         <i className="ion-android-checkmark-circle"></i>
                                         &nbsp;
                                         Transfer
                                     </button>
-                                </div>
-                                <div className="input-group">                                                  
-                                    <div className="input-group spacing">
-                                        <label> Receiver Account </label>
-                                        <input type="number" name="newamount" />
-                                    </div>
-                                    <div className="input-group">
+                                    {/* <div className="input-group">
                                         <button type="submit">
                                             <i className="ion-android-checkmark-circle"></i>
                                             &nbsp;
                                             Show Account
                                         </button>
-                                    </div>
+                                    </div> */}
                                     <br />
                                 </div>
                             </form>

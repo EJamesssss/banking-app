@@ -67,6 +67,26 @@ const Expense = () => {
         resetInput()
     }
 
+    const handlePayExpense = (id) => {
+        const selectedExp = expense.find(exp => exp.id == id)
+        const cost = selectedExp.cost
+        const accountnum = selectedExp.accountnumber
+        let existingBalance = 0
+        for (let p = 0; p < acctdetails.length; p++){
+            if(accountnum == acctdetails[p].accountnumber){
+                existingBalance = acctdetails[p].balance
+            }
+        }
+        const afterPayment = (existingBalance - cost).toString()
+        for(let cr = 0; cr < acctdetails.length;cr++){
+            if(accountnum == acctdetails[cr].accountnumber){
+                acctdetails[cr].balance = afterPayment
+            }
+        }
+        localStorage.setItem('allAccounts', JSON.stringify(acctdetails))
+
+    }
+
     const addExpense = () => {
         let lastID = 0
         if(expenselocal.length == 0){
@@ -148,7 +168,7 @@ const Expense = () => {
                                                         <img className="img_size" src={remove} />
                                                     </span>
                                                     &nbsp;
-                                                    <span>
+                                                    <span onClick={() => handlePayExpense(id)}>
                                                         <img className="img_size" src={pay} />
                                                     </span>
                                                 </td>

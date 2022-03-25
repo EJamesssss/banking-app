@@ -108,7 +108,7 @@ const UserDashboard = () => {
                 setModalWarning(true)
             }else{
                 for(let w =0; w < storageData.length;w++){
-                    if(acctName == storageData[w].name){
+                    if(acctNumber == storageData[w].accountnumber){
                         storageData[w].balance = updatedAmount
                     }
                 }
@@ -142,7 +142,7 @@ const UserDashboard = () => {
             setModalWarning(true)
         }else{
             for(let d = 0; d < storageData.length; d++){
-                if(acctName == storageData[d].name){
+                if(acctNumber == storageData[d].accountnumber){
                     storageData[d].balance = updateDeposit
                 }
             }
@@ -188,7 +188,7 @@ const UserDashboard = () => {
             setModalWarning(true)
         }else{
             for(let sender = 0; sender < storageData.length;sender++){
-                if(acctName == storageData[sender].name){
+                if(acctNumber == storageData[sender].accountnumber){
                     storageData[sender].balance = deductSender
                 }
             }
@@ -197,7 +197,7 @@ const UserDashboard = () => {
     
     
             for(let rec = 0;rec < storageData.length;rec++){
-                if(receiverAccount == storageData[rec].name){
+                if(receiverAccountNumber == storageData[rec].accountnumber){
                     storageData[rec].balance = addReceiver
                 }
             }
