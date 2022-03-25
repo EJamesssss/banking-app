@@ -4,6 +4,7 @@ import "../App.css";
 import logo from "../assets/images/logo.png";
 import update from "../assets/images/update.png";
 import remove from "../assets/images/remove.png";
+import pay from "../assets/images/pay.png";
 
 const Expense = () => {
 
@@ -145,6 +146,10 @@ const Expense = () => {
                                                     &nbsp;
                                                     <span onClick={ () => handleDelete(id)}>
                                                         <img className="img_size" src={remove} />
+                                                    </span>
+                                                    &nbsp;
+                                                    <span>
+                                                        <img className="img_size" src={pay} />
                                                     </span>
                                                 </td>
                                             </tr>
